@@ -1,19 +1,21 @@
 require 'spec_helper_acceptance'
 
 describe 'patroni class:' do
-  patroni1 = hosts_as('patroni1')[0]
-  patroni2 = hosts_as('patroni2')[0]
+  collection = ENV.fetch('BEAKER_PUPPET_COLLECTION', 'openvox8')
+  patronia = hosts_as('patronia')[0]
+  patronib = hosts_as('patronib')[0]
   etcd = <<-EOS
+    $suffix = "-#{collection}.${facts['networking']['domain']}"
     class { 'etcd':
       config => {
         'data-dir'                    => '/var/lib/etcd',
-        'name'                        => $facts['networking']['hostname'],
-        'initial-advertise-peer-urls' => "http://${facts['networking']['hostname']}:2380",
+        'name'                        => $facts['networking']['fqdn'],
+        'initial-advertise-peer-urls' => "http://${facts['networking']['fqdn']}:2380",
         'listen-peer-urls'            => 'http://0.0.0.0:2380',
         'listen-client-urls'          => 'http://0.0.0.0:2379',
-        'advertise-client-urls'       => "http://${facts['networking']['hostname']}:2379",
+        'advertise-client-urls'       => "http://${facts['networking']['fqdn']}:2379",
         'initial-cluster-token'       => 'etcd-cluster-1',
-        'initial-cluster'             => 'patroni1=http://patroni1:2380,patroni2=http://patroni2:2380',
+        'initial-cluster'             => "patronia${suffix}=http://patronia${suffix}:2380,patronib${suffix}=http://patronib${suffix}:2380",
         'initial-cluster-state'       => 'new',
         'enable-v2'                   => true,
       },
@@ -46,26 +48,26 @@ describe 'patroni class:' do
   EOS
   context 'default parameters' do
     it 'runs successfully' do
-      apply_manifest_on(patroni1, etcd)
-      apply_manifest_on(patroni2, etcd, catch_failures: true)
-      apply_manifest_on(patroni1, etcd, catch_failures: true)
-      apply_manifest_on(patroni1, pp, catch_failures: true)
-      apply_manifest_on(patroni1, pp, catch_changes: true)
-      apply_manifest_on(patroni2, pp, catch_failures: true)
-      apply_manifest_on(patroni2, pp, catch_changes: true)
+      apply_manifest_on(patronia, etcd)
+      apply_manifest_on(patronib, etcd, catch_failures: true)
+      apply_manifest_on(patronia, etcd, catch_failures: true)
+      apply_manifest_on(patronia, pp, catch_failures: true)
+      apply_manifest_on(patronia, pp, catch_changes: true)
+      apply_manifest_on(patronib, pp, catch_failures: true)
+      apply_manifest_on(patronib, pp, catch_changes: true)
     end
 
-    describe port(8008), node: patroni1 do
+    describe port(8008), node: patronia do
       it { is_expected.to be_listening }
     end
-    describe port(8008), node: patroni2 do
+    describe port(8008), node: patronib do
       it { is_expected.to be_listening }
     end
-    describe service('patroni'), node: patroni1 do
+    describe service('patroni'), node: patronia do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
     end
-    describe service('patroni'), node: patroni2 do
+    describe service('patroni'), node: patronib do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
     end
@@ -88,8 +90,8 @@ describe 'patroni class:' do
           require     => Service['patroni'],
         }
       EOS
-      apply_manifest_on(patroni1, dcs_pp, catch_failures: true)
-      apply_manifest_on(patroni1, dcs_pp, catch_changes: true)
+      apply_manifest_on(patronia, dcs_pp, catch_failures: true)
+      apply_manifest_on(patronia, dcs_pp, catch_changes: true)
     end
 
     describe command('ps aux | grep postgres') do
