@@ -87,6 +87,7 @@ The following parameters are available in the `patroni` class:
 * [`consul_dc`](#-patroni--consul_dc)
 * [`consul_checks`](#-patroni--consul_checks)
 * [`use_etcd`](#-patroni--use_etcd)
+* [`etcd_version`](#-patroni--etcd_version)
 * [`etcd_host`](#-patroni--etcd_host)
 * [`etcd_hosts`](#-patroni--etcd_hosts)
 * [`etcd_url`](#-patroni--etcd_url)
@@ -665,6 +666,14 @@ Data type: `Boolean`
 Boolean to use Etcd for configuration storage
 
 Default value: `false`
+
+##### <a name="-patroni--etcd_version"></a>`etcd_version`
+
+Data type: `Enum['etcd', 'etcd3']`
+
+Protocol version to use for etcd
+
+Default value: `'etcd'`
 
 ##### <a name="-patroni--etcd_host"></a>`etcd_host`
 
