@@ -128,6 +128,8 @@
 #   Refer to Consul configuration `checks` setting
 # @param use_etcd
 #   Boolean to use Etcd for configuration storage
+# @param etcd_version
+#   Protocol version to use for etcd
 # @param etcd_host
 #   Refer to Etcd configuration `host` setting
 # @param etcd_hosts
@@ -334,6 +336,7 @@ class patroni (
 
   # Etcd Settings
   Boolean $use_etcd = false,
+  Enum['etcd', 'etcd3'] $etcd_version = 'etcd',
   String $etcd_host = '127.0.0.1:2379',
   Array[String] $etcd_hosts = [],
   Variant[Undef,String] $etcd_url = undef,
