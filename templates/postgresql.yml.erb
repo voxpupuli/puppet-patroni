@@ -176,7 +176,7 @@ watchdog:
   safety_margin: <%= @watchdog_safety_margin %>
 <% if @use_etcd -%>
 
-etcd:
+<%= @etcd_version %>:
   host: <%= @etcd_host %>
 <% unless @etcd_hosts.empty? -%>
   hosts:
