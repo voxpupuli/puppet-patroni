@@ -1,26 +1,3 @@
-# Changelog
-
-All notable changes to this project will be documented in this file.
-Each new release typically also includes the latest modulesync defaults.
-These should not affect the functionality of the module.
-
-## [v3.1.0](https://github.com/voxpupuli/puppet-patroni/tree/v3.1.0) (2025-04-09)
-
-[Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v3.0.0...v3.1.0)
-
-**Implemented enhancements:**
-
-- Add AlmaLinux/OracleLinux/CentOS support [\#68](https://github.com/voxpupuli/puppet-patroni/pull/68) ([bastelfreak](https://github.com/bastelfreak))
-- metadata.json: Add OpenVox [\#67](https://github.com/voxpupuli/puppet-patroni/pull/67) ([jstraw](https://github.com/jstraw))
-- Add support for etcd protocol version 3 [\#66](https://github.com/voxpupuli/puppet-patroni/pull/66) ([jordyb6](https://github.com/jordyb6))
-
-**Merged pull requests:**
-
-- Run unit tests on all platforms [\#69](https://github.com/voxpupuli/puppet-patroni/pull/69) ([bastelfreak](https://github.com/bastelfreak))
-- switch from tailoredautomation/etcd-\>puppet/etcd [\#65](https://github.com/voxpupuli/puppet-patroni/pull/65) ([bastelfreak](https://github.com/bastelfreak))
-- fixtures: migrate to git urls [\#61](https://github.com/voxpupuli/puppet-patroni/pull/61) ([bastelfreak](https://github.com/bastelfreak))
-- CI: Cleanup Hiera setup [\#59](https://github.com/voxpupuli/puppet-patroni/pull/59) ([bastelfreak](https://github.com/bastelfreak))
-
 ## [v3.0.0](https://github.com/voxpupuli/puppet-patroni/tree/v3.0.0) (2025-02-19)
 
 [Full Changelog](https://github.com/tailored-automation/puppet-module-patroni/compare/v2.1.0...v3.0.0)
