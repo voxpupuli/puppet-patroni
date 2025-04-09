@@ -32,13 +32,13 @@ describe 'patroni class:' do
       },
       bootstrap_pg_hba        => [
         'local all postgres ident',
-        'host all all 0.0.0.0/0 md5',
-        'host replication repl 0.0.0.0/0 md5',
+        'host all all 0.0.0.0/0 scram-sha-256',
+        'host replication repl 0.0.0.0/0 scram-sha-256',
       ],
       pgsql_pg_hba            => [
         'local all postgres ident',
-        'host all all 0.0.0.0/0 md5',
-        'host replication repl 0.0.0.0/0 md5',
+        'host all all 0.0.0.0/0 scram-sha-256',
+        'host replication repl 0.0.0.0/0 scram-sha-256',
       ],
       superuser_username      => 'postgres',
       superuser_password      => 'postgrespassword',
