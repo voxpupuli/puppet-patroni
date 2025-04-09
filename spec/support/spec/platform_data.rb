@@ -61,7 +61,6 @@ def platform_data(p, d)
                        else
                          p
                        end
-  puts sanitized_platform
   default = data['default'][d]
   data.fetch(sanitized_platform, data['default']).fetch(d, default)
 end
