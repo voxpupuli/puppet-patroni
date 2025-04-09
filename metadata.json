@@ -1,12 +1,12 @@
 {
-  "name": "tailoredautomation-patroni",
-  "version": "3.1.1-rc0",
-  "author": "tailoredautomation",
+  "name": "puppet-patroni",
+  "version": "3.1.0",
+  "author": "Vox Pupuli",
   "summary": "Install and manages Patroni for high-availability PostgreSQL",
   "license": "Apache-2.0",
-  "source": "https://github.com/tailored-automation/puppet-module-patroni",
-  "project_page": "https://github.com/tailored-automation/puppet-module-patroni",
-  "issues_url": "https://github.com/tailored-automation/puppet-module-patroni/issues",
+  "source": "https://github.com/voxpupuli/puppet-module-patroni",
+  "project_page": "https://github.com/voxpupuli/puppet-module-patroni",
+  "issues_url": "https://github.com/voxpupuli/puppet-module-patroni/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
@@ -91,8 +91,5 @@
     "postgresql",
     "cluster",
     "ha"
-  ],
-  "pdk-version": "3.0.0",
-  "template-url": "https://github.com/tailored-automation/pdk-templates.git#main",
-  "template-ref": "heads/main-0-g8e0611a"
+  ]
 }
