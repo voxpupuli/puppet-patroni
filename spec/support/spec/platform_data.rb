@@ -16,20 +16,6 @@ def platform_data(p, d)
       bin_dir: '/usr/bin',
       python_venv_version: '3.9',
     },
-    'Rocky-8' => {
-      manage_postgresql_repo: false,
-      postgres_repo_require: nil,
-      data_dir: '/var/lib/pgsql/data',
-      bin_dir: '/usr/bin',
-      python_venv_version: '3.6',
-    },
-    'Rocky-9' => {
-      manage_postgresql_repo: false,
-      postgres_repo_require: nil,
-      data_dir: '/var/lib/pgsql/data',
-      bin_dir: '/usr/bin',
-      python_venv_version: '3.9',
-    },
     'Debian-11' => {
       data_dir: '/var/lib/postgresql/13/main',
       bin_dir: '/usr/lib/postgresql/13/bin',
@@ -70,6 +56,12 @@ def platform_data(p, d)
       config_path: '/opt/app/patroni/etc/postgresql.yml',
     },
   }
+  sanitized_platform = if %r{(RedHat|CentOS|AlmaLinux|Rocky|OracleLinux)-(\d+)}.match(p)
+                         "RedHat-#{Regexp.last_match(2)}"
+                       else
+                         p
+                       end
+  puts sanitized_platform
   default = data['default'][d]
-  data.fetch(p, data['default']).fetch(d, default)
+  data.fetch(sanitized_platform, data['default']).fetch(d, default)
 end
