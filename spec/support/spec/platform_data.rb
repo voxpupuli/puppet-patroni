@@ -16,6 +16,20 @@ def platform_data(p, d)
       bin_dir: '/usr/bin',
       python_venv_version: '3.9',
     },
+    'Rocky-8' => {
+      manage_postgresql_repo: false,
+      postgres_repo_require: nil,
+      data_dir: '/var/lib/pgsql/data',
+      bin_dir: '/usr/bin',
+      python_venv_version: '3.6',
+    },
+    'Rocky-9' => {
+      manage_postgresql_repo: false,
+      postgres_repo_require: nil,
+      data_dir: '/var/lib/pgsql/data',
+      bin_dir: '/usr/bin',
+      python_venv_version: '3.9',
+    },
     'Debian-11' => {
       data_dir: '/var/lib/postgresql/13/main',
       bin_dir: '/usr/lib/postgresql/13/bin',
