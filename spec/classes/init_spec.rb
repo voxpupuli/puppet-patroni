@@ -1,28 +1,7 @@
 require 'spec_helper'
 
 describe 'patroni' do
-  test_on = {
-    # The supported OS's are listed here explicitly instead of automatically
-    # using the list from metadata.json. This is to prevent extra, wasteful and
-    # useless testing for RedHat like systems which would otherwise run the
-    # same tests for OracleLinux and RedHat.
-    supported_os: [
-      {
-        'operatingsystem'        => 'RedHat',
-        'operatingsystemrelease' => ['8', '9'],
-      },
-      {
-        'operatingsystem'        => 'Debian',
-        'operatingsystemrelease' => ['11', '12'],
-      },
-      {
-        'operatingsystem'        => 'Ubuntu',
-        'operatingsystemrelease' => ['20.04', '22.04'],
-      },
-    ],
-  }
-
-  on_supported_os(test_on).sort.each do |os, os_facts|
+  on_supported_os.sort.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
       let(:node) { 'localhost' }
