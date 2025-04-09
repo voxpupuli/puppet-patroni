@@ -1,5 +1,14 @@
-
 # patroni
+
+[![Build Status](https://github.com/voxpupuli/puppet-patroni/workflows/CI/badge.svg)](https://github.com/voxpupuli/puppet-patroni/actions?query=workflow%3ACI)
+[![Release](https://github.com/voxpupuli/puppet-patroni/actions/workflows/release.yml/badge.svg)](https://github.com/voxpupuli/puppet-patroni/actions/workflows/release.yml)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/patroni.svg)](https://forge.puppetlabs.com/puppet/patroni)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/patroni.svg)](https://forge.puppetlabs.com/puppet/patroni)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/patroni.svg)](https://forge.puppetlabs.com/puppet/patroni)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/patroni.svg)](https://forge.puppetlabs.com/puppet/patroni)
+[![puppetmodule.info docs](https://www.puppetmodule.info/images/badge.svg)](https://www.puppetmodule.info/m/puppet-patroni)
+[![Apache-2 License](https://img.shields.io/github/license/voxpupuli/puppet-patroni.svg)](LICENSE)
+[![Donated by Tailored Automation](https://img.shields.io/badge/donated%20by-Tailored%20Automation-fb7047.svg)](#transfer-notice)
 
 ## Table of Contents
 
@@ -206,3 +215,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 ## License
 
 See [LICENSE](LICENSE) file.
+
+## Transfer Notice
+
+This plugin was originally authored by [Tailored Automation](https://tailoredautomation.io/).
+The maintainer preferred that Vox Pupuli take ownership of the module for future improvement and maintenance.
+Existing pull requests and issues were transferred over, please fork and continue to contribute here.
