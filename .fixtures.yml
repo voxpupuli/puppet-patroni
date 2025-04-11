@@ -5,26 +5,26 @@ fixtures:
   forge_modules:
     stdlib:
       repo: puppetlabs/stdlib
-      ref: '9.4.1'
+      ref: '9.7.0'
     postgresql:
       repo: puppetlabs/postgresql
-      ref: '10.0.2'
+      ref: '10.5.0'
     # Needed by Postgresql module
     apt:
       repo: puppetlabs/apt
-      ref: '9.1.0'
+      ref: '10.0.1'
     python:
       repo: puppet/python
-      ref: '7.0.0'
+      ref: '7.4.0'
     # Needed by Python module
     epel:
       repo: puppet/epel
       ref: '5.0.0'
     systemd:
       repo: puppet/systemd
-      ref: '6.1.0'
+      ref: '8.1.0'
     yumrepo_core:
       repo: puppetlabs/yumrepo_core
-      ref: '2.0.0'
+      ref: '2.1.0'
   symlinks:
     patroni: "#{source_dir}"
