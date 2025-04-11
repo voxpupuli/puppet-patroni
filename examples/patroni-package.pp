@@ -46,7 +46,7 @@ case $facts['os']['family'] {
   }
 
   default: {
-    fail('This example is not runable on yout platform')
+    fail('This example is not runnable on your platform')
   }
 }
 
