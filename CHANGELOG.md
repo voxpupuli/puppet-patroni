@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.2.0](https://github.com/voxpupuli/puppet-patroni/tree/v3.2.0) (2025-05-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v3.1.0...v3.2.0)
+
+**Implemented enhancements:**
+
+- Add Ubuntu 24.04 support [\#50](https://github.com/voxpupuli/puppet-patroni/pull/50) ([mouchymouchy](https://github.com/mouchymouchy))
+
+**Merged pull requests:**
+
+- Fix Apache-2 license text [\#77](https://github.com/voxpupuli/puppet-patroni/pull/77) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.1.0](https://github.com/voxpupuli/puppet-patroni/tree/v3.1.0) (2025-04-09)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v3.0.0...v3.1.0)
@@ -16,6 +28,7 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
+- Update example inside docs README [\#74](https://github.com/voxpupuli/puppet-patroni/pull/74) ([lbetz](https://github.com/lbetz))
 - Run unit tests on all platforms [\#69](https://github.com/voxpupuli/puppet-patroni/pull/69) ([bastelfreak](https://github.com/bastelfreak))
 - switch from tailoredautomation/etcd-\>puppet/etcd [\#65](https://github.com/voxpupuli/puppet-patroni/pull/65) ([bastelfreak](https://github.com/bastelfreak))
 - fixtures: migrate to git urls [\#61](https://github.com/voxpupuli/puppet-patroni/pull/61) ([bastelfreak](https://github.com/bastelfreak))
