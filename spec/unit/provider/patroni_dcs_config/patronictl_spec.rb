@@ -7,7 +7,8 @@ describe Puppet::Type.type(:patroni_dcs_config).provider(:patronictl) do
 
   describe 'self.instances' do
     it 'creates instances' do
-      allow(provider).to receive(:patronictl).with(['show-config']).and_return(my_fixture_read('config.out'))
+      allow(provider).to receive(:patronictl).with(['show-config']).
+        and_return(File.read('spec/fixtures/unit/provider/patroni_dcs_config/patronictl/config.out'))
       expect(provider.instances.length).to eq(10)
       instance = provider.instances.select { |i| i.instance_variable_get('@property_hash')[:name] == 'postgresql.parameters.max_connections' }
       expect(instance[0].instance_variable_get('@property_hash')[:value]).to eq(200)
