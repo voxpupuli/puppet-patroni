@@ -87,7 +87,7 @@ describe 'patroni class:' do
             'local all postgres ident',
             'host all all 0.0.0.0/0 md5',
             'host replication repl 0.0.0.0/0 md5',
-          ]
+          ],
           notify => Exec['patroni-restart-pending'],
         }
 
