@@ -204,6 +204,20 @@
 #   Refer to Watchdog configuration `device` setting
 # @param watchdog_safety_margin
 #   Refer to Watchdog configuration `safety_margin` setting
+# @param ctl_authentication_username
+#   Refer to CTL configuration `authentication.username` setting
+# @param ctl_authentication_password
+#   Refer to CTL configuration `authentication.password` setting
+# @param ctl_insecure
+#   Refer to CTL configuration `insecure` setting
+# @param ctl_cacert
+#   Refer to CTL configuration `cacert` setting
+# @param ctl_certfile
+#   Refer to CTL configuration `certfile` setting
+# @param ctl_keyfile
+#   Refer to CTL configuration `keyfile` setting
+# @param ctl_keyfile_password
+#   Refer to CTL configuration `keyfile_password` setting
 # @param manage_postgresql
 #   Boolean to determine if postgresql is managed
 # @param postgresql_version
@@ -384,6 +398,15 @@ class patroni (
   Enum['off','automatic','required'] $watchdog_mode = 'automatic',
   Stdlib::Absolutepath $watchdog_device = '/dev/watchdog',
   Integer $watchdog_safety_margin = 5,
+
+  # CTL Settings
+  Variant[Undef,String]  $ctl_authentication_username = undef,
+  Variant[Undef,String]  $ctl_authentication_password = undef,
+  Variant[Undef,Boolean] $ctl_insecure = undef,
+  Variant[Undef,String]  $ctl_cacert = undef,
+  Variant[Undef,String]  $ctl_certfile = undef,
+  Variant[Undef,String]  $ctl_keyfile = undef,
+  Variant[Undef,String]  $ctl_keyfile_password = undef,
 
   # Module Specific Settings
   Boolean $manage_postgresql = true,
