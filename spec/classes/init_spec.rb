@@ -407,6 +407,21 @@ describe 'patroni' do
           is_expected.to contain_python__pip('psycopg2').with(environment: ['PIP_PREFIX=/opt/app/patroni', 'http_proxy=https://proxy.corp.local:3128', 'https_proxy=https://proxy.corp.local:3128'])
         }
       end
+      context 'with no main instance and only distro packages' do
+        let :params do
+          {
+            scope: 'internal',
+            manage_postgresql_repo: false,
+            install_method: 'package',
+            postgresql_version: '15',
+            service_enable: false,
+            config_ensure: 'absent',
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_file('patroni_config').with_ensure('absent') }
+      end
     end
   end
 end

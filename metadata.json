@@ -18,11 +18,11 @@
     },
     {
       "name": "puppet/python",
-      "version_requirement": ">= 6.0.0 <8.0.0"
+      "version_requirement": ">= 6.0.0 < 9.0.0"
     },
     {
       "name": "puppet/systemd",
-      "version_requirement": ">= 5.0.0 <9.0.0"
+      "version_requirement": ">= 5.0.0 < 9.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -78,12 +78,8 @@
   ],
   "requirements": [
     {
-      "name": "puppet",
-      "version_requirement": ">= 7.0.0 < 9.0.0"
-    },
-    {
       "name": "openvox",
-      "version_requirement": ">= 7.0.0 < 9.0.0"
+      "version_requirement": ">= 8.19.0 < 9.0.0"
     }
   ],
   "tags": [

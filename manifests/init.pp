@@ -268,6 +268,8 @@
 #   Refer to Standby configuration `slot` setting
 # @param http_proxy
 #   URI for an http(s) proxy, used for pip commands
+# @param config_ensure management of the main config. The config isn't required when you run only patroni::instance resources
+#
 class patroni (
 
   # Global Settings
@@ -429,6 +431,7 @@ class patroni (
   Boolean $service_enable = true,
   Optional[String[1]] $custom_pip_provider = undef,
   Optional[Stdlib::HTTPUrl] $http_proxy = undef,
+  Enum['file','absent'] $config_ensure = 'file',
 ) {
   if $manage_postgresql {
     class { 'postgresql::globals':
@@ -573,7 +576,7 @@ class patroni (
   }
 
   file { 'patroni_config':
-    ensure  => 'file',
+    ensure  => $config_ensure,
     path    => $config_path,
     owner   => $config_owner,
     group   => $config_group,
