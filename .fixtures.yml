@@ -1,10 +1,10 @@
 ---
 fixtures:
   repositories:
-    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
-    postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
     apt: https://github.com/puppetlabs/puppetlabs-apt
-    python: https://github.com/voxpupuli/puppet-python
     epel: https://github.com/voxpupuli/puppet-epel
+    postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
+    python: https://github.com/voxpupuli/puppet-python
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
     systemd: https://github.com/voxpupuli/puppet-systemd
     yumrepo_core: https://github.com/puppetlabs/puppetlabs-yumrepo_core
