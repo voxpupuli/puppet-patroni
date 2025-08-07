@@ -5,7 +5,7 @@ describe 'patroni' do
     context "on #{os}" do
       let(:facts) { os_facts }
       let(:node) { 'localhost' }
-      let(:params) { { 'scope' => 'testscope' } }
+      let(:params) { { 'scope' => 'testscope', 'ctl_authentication_username' => 'Username', 'ctl_authentication_password' => 'p@ssw0rd', 'ctl_insecure' => true } }
       let(:platform) { "#{facts[:os]['name']}-#{facts[:os]['release']['major']}" }
 
       it { is_expected.to compile.with_all_deps }
@@ -205,6 +205,13 @@ describe 'patroni' do
           'restapi' => {
             'listen' => '0.0.0.0:8008',
             'connect_address' => 'localhost:8008',
+          },
+          'ctl' => {
+            'authentication' => {
+              'username' => 'Username',
+              'password' => 'p@ssw0rd',
+            },
+            'insecure' => true,
           },
           'watchdog' => {
             'mode' => 'automatic',
