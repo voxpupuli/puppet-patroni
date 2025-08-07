@@ -169,6 +169,29 @@ restapi:
     username: <%= @restapi_username %>
     password: <%= @restapi_password %>
 <% end -%>
+<% unless @ctl_authentication_username && @ctl_authentication_password && @ctl_insecure && @ctl_cacert && @ctl_certfile && @ctl_keyfile && @ctl_keyfile_password -%>
+ctl:
+<% if @ctl_authentication_username && @ctl_authentication_password  -%>
+  authentication:
+    username: <%= @ctl_authentication_username %>
+    password: <%= @ctl_authentication_password %>
+<% end -%>
+<% if @ctl_insecure -%>
+  insecure: <%= @ctl_insecure %>
+<% end -%>
+<% if @ctl_cacert -%>
+  cacert: <%= @ctl_cacert %>
+<% end -%>
+<% if @ctl_certfile -%>
+  certfile: <%= @ctl_certfile %>
+<% end -%>
+<% if @ctl_keyfile -%>
+  keyfile: <%= @ctl_keyfile %>
+<% end -%>
+<% if @ctl_keyfile_password -%>
+  keyfile_password: <%= @ctl_keyfile_password %>
+<% end -%>
+<% end -%>
 
 watchdog:
   mode: <%= @watchdog_mode %>
