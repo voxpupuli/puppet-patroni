@@ -30,6 +30,13 @@ def platform_data(p, d)
       config_dir: '/etc/patroni',
       config_path: '/etc/patroni/config.yml',
     },
+    'Debian-13' => {
+      data_dir: '/var/lib/postgresql/17/main',
+      bin_dir: '/usr/lib/postgresql/17/bin',
+      python_venv_version: '3.13',
+      config_dir: '/etc/patroni',
+      config_path: '/etc/patroni/config.yml',
+    },
     'Ubuntu-20.04' => {
       data_dir: '/var/lib/postgresql/12/main',
       bin_dir: '/usr/lib/postgresql/12/bin',
