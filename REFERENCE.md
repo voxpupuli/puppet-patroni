@@ -325,7 +325,7 @@ Default value: `{}`
 
 ##### <a name="-patroni--bootstrap_post_bootstrap"></a>`bootstrap_post_bootstrap`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Bootstrap configuration settings `post_bootstrap` setting
 
@@ -333,7 +333,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--bootstrap_post_init"></a>`bootstrap_post_init`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Bootstrap configuration settings `post_init` setting
 
@@ -373,7 +373,7 @@ Default value: `'changeme'`
 
 ##### <a name="-patroni--callback_on_reload"></a>`callback_on_reload`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to PostgreSQL configuration settings callbacks `on_reload`
 
@@ -381,7 +381,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--callback_on_restart"></a>`callback_on_restart`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to PostgreSQL configuration settings callbacks `on_restart`
 
@@ -389,7 +389,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--callback_on_role_change"></a>`callback_on_role_change`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to PostgreSQL configuration settings callbacks `on_role_change`
 
@@ -397,7 +397,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--callback_on_start"></a>`callback_on_start`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to PostgreSQL configuration settings callbacks `on_start`
 
@@ -405,7 +405,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--callback_on_stop"></a>`callback_on_stop`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to PostgreSQL configuration settings callbacks `on_stop`
 
@@ -413,7 +413,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--pgsql_connect_address"></a>`pgsql_connect_address`
 
-Data type: `Variant[Undef,String]`
+Data type: `String`
 
 Refer to PostgreSQL configuration settings `connect_address` setting
 
@@ -437,7 +437,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--pgsql_config_dir"></a>`pgsql_config_dir`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to PostgreSQL configuration settings `config_dir` setting
 
@@ -445,7 +445,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--pgsql_bin_dir"></a>`pgsql_bin_dir`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to PostgreSQL configuration settings `bin_dir` setting
 
@@ -485,7 +485,7 @@ Default value: `{}`
 
 ##### <a name="-patroni--pgsql_custom_conf"></a>`pgsql_custom_conf`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to PostgreSQL configuration settings `custom_conf` setting
 
@@ -565,7 +565,7 @@ Default value: `'localhost'`
 
 ##### <a name="-patroni--consul_url"></a>`consul_url`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Consul configuration `url` setting
 
@@ -589,7 +589,7 @@ Default value: `'http'`
 
 ##### <a name="-patroni--consul_token"></a>`consul_token`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Consul configuration `token` setting
 
@@ -629,7 +629,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--consul_cacert"></a>`consul_cacert`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Consul configuration `cacert` setting
 
@@ -637,7 +637,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--consul_cert"></a>`consul_cert`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Consul configuration `cert` setting
 
@@ -645,7 +645,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--consul_key"></a>`consul_key`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Consul configuration `key` setting
 
@@ -653,7 +653,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--consul_dc"></a>`consul_dc`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Consul configuration `dc` setting
 
@@ -661,7 +661,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--consul_checks"></a>`consul_checks`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Consul configuration `checks` setting
 
@@ -701,7 +701,7 @@ Default value: `[]`
 
 ##### <a name="-patroni--etcd_url"></a>`etcd_url`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Etcd configuration `url` setting
 
@@ -709,7 +709,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--etcd_proxyurl"></a>`etcd_proxyurl`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Etcd configuration `proxy` setting
 
@@ -717,7 +717,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--etcd_srv"></a>`etcd_srv`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Etcd configuration `srv` setting
 
@@ -733,7 +733,7 @@ Default value: `'http'`
 
 ##### <a name="-patroni--etcd_username"></a>`etcd_username`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Etcd configuration `username` setting
 
@@ -741,7 +741,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--etcd_password"></a>`etcd_password`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Etcd configuration `password` setting
 
@@ -749,7 +749,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--etcd_cacert"></a>`etcd_cacert`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Etcd configuration `cacert` setting
 
@@ -757,7 +757,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--etcd_cert"></a>`etcd_cert`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Etcd configuration `cert` setting
 
@@ -765,7 +765,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--etcd_key"></a>`etcd_key`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Etcd configuration `key` setting
 
@@ -829,7 +829,7 @@ Default value: `{}`
 
 ##### <a name="-patroni--kubernetes_scope_label"></a>`kubernetes_scope_label`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Kubernetes configuration `scope_label` setting
 
@@ -837,7 +837,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--kubernetes_role_label"></a>`kubernetes_role_label`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Kubernetes configuration `role_label` setting
 
@@ -853,7 +853,7 @@ Default value: `false`
 
 ##### <a name="-patroni--kubernetes_pod_ip"></a>`kubernetes_pod_ip`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Kubernetes configuration `pod_ip` setting
 
@@ -861,7 +861,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--kubernetes_ports"></a>`kubernetes_ports`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to Kubernetes configuration `ports` setting
 
@@ -893,7 +893,7 @@ Default value: `'0.0.0.0:8008'`
 
 ##### <a name="-patroni--restapi_username"></a>`restapi_username`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to REST API configuration `username` setting
 
@@ -901,7 +901,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--restapi_password"></a>`restapi_password`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to REST API configuration `password` setting
 
@@ -909,7 +909,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--restapi_certfile"></a>`restapi_certfile`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to REST API configuration `certfile` setting
 
@@ -917,7 +917,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--restapi_keyfile"></a>`restapi_keyfile`
 
-Data type: `Variant[Undef,String]`
+Data type: `Optional[String]`
 
 Refer to REST API configuration `keyfile` setting
 
