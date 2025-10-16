@@ -158,6 +158,7 @@ The following parameters are available in the `patroni` class:
 * [`standby_cluster_primary_slot_name`](#-patroni--standby_cluster_primary_slot_name)
 * [`http_proxy`](#-patroni--http_proxy)
 * [`config_ensure`](#-patroni--config_ensure)
+* [`config_change_action`](#-patroni--config_change_action)
 
 ##### <a name="-patroni--scope"></a>`scope`
 
@@ -1245,6 +1246,16 @@ Data type: `Enum['file','absent']`
 management of the main config. The config isn't required when you run only patroni::instance resources
 
 Default value: `'file'`
+
+##### <a name="-patroni--config_change_action"></a>`config_change_action`
+
+Data type: `Enum['reload', 'restart']`
+
+How to handle changes to patroni configuration file
+Gives option to simply reload patroni configuration on changes instead of restarting the service every
+time which might have side effects. Especially as many params dont require a service restart.
+
+Default value: `'restart'`
 
 ## Resource types
 
