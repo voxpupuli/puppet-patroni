@@ -2,6 +2,7 @@
 .github/workflows/ci.yml:
   with:
     beaker_hosts: 'patronia:patronia,default.;patronib:patronib.'
+    beaker_hypervisor: 'docker'
 .puppet-lint.rc:
   enabled_lint_checks:
     - parameter_documentation
