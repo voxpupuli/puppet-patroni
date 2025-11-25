@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-patroni/tree/v4.0.0) (2025-11-25)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v3.2.0...v4.0.0)
+
+**Breaking changes:**
+
+- Drop EoL Ubuntu 20.04 support [\#98](https://github.com/voxpupuli/puppet-patroni/pull/98) ([bastelfreak](https://github.com/bastelfreak))
+- Drop puppet, update openvox minimum version to 8.19 [\#85](https://github.com/voxpupuli/puppet-patroni/pull/85) ([TheMeier](https://github.com/TheMeier))
+
+**Implemented enhancements:**
+
+- puppet/systemd: Allow 9.x [\#93](https://github.com/voxpupuli/puppet-patroni/pull/93) ([bastelfreak](https://github.com/bastelfreak))
+- Add Debian 13 support [\#88](https://github.com/voxpupuli/puppet-patroni/pull/88) ([bastelfreak](https://github.com/bastelfreak))
+- Make patroni config file management optional [\#86](https://github.com/voxpupuli/puppet-patroni/pull/86) ([bastelfreak](https://github.com/bastelfreak))
+- puppet/python: Allow 8.x [\#84](https://github.com/voxpupuli/puppet-patroni/pull/84) ([TheMeier](https://github.com/TheMeier))
+- Add CTL configuration block to patroni config [\#83](https://github.com/voxpupuli/puppet-patroni/pull/83) ([toggetit](https://github.com/toggetit))
+- Add new example for using patroni package instead pip [\#78](https://github.com/voxpupuli/puppet-patroni/pull/78) ([lbetz](https://github.com/lbetz))
+
+**Merged pull requests:**
+
+- Update example [\#75](https://github.com/voxpupuli/puppet-patroni/pull/75) ([lbetz](https://github.com/lbetz))
+
 ## [v3.2.0](https://github.com/voxpupuli/puppet-patroni/tree/v3.2.0) (2025-05-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v3.1.0...v3.2.0)
