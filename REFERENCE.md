@@ -303,7 +303,7 @@ Default value: `'en_US.utf8'`
 
 ##### <a name="-patroni--initdb_extra_parameters"></a>`initdb_extra_parameters`
 
-Data type: `Hash[String, Optional[Any]]`
+Data type: `Hash[String[1], Optional[Any]]`
 
 Additional parameters to pass to the PostgreSQL `initdb` command
 
