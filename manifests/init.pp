@@ -295,7 +295,7 @@ class patroni (
   Boolean $initdb_data_checksums = true,
   String $initdb_encoding = 'UTF8',
   String $initdb_locale = 'en_US.utf8',
-  Hash[String, Optional[Any]] $initdb_extra_parameters = {},
+  Hash[String[1], Optional[Any]] $initdb_extra_parameters = {},
   Array[String] $bootstrap_pg_hba = [
     'host all all 0.0.0.0/0 md5',
     'host replication rep_user 0.0.0.0/0 md5',
