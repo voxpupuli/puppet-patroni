@@ -606,7 +606,7 @@ class patroni (
     command     => "patronictl -c ${config_path} reload ${scope} ${hostname} --force",
     refreshonly => true,
     require     => Service['patroni'],
-    path        => ["${install_dir}/bin", '/usr/bin'],
+    path        => ["${install_dir}/bin", $facts['path']],
   }
 
   service { 'patroni':
