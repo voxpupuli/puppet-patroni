@@ -41,6 +41,7 @@ The following parameters are available in the `patroni` class:
 * [`initdb_data_checksums`](#-patroni--initdb_data_checksums)
 * [`initdb_encoding`](#-patroni--initdb_encoding)
 * [`initdb_locale`](#-patroni--initdb_locale)
+* [`initdb_extra_parameters`](#-patroni--initdb_extra_parameters)
 * [`bootstrap_pg_hba`](#-patroni--bootstrap_pg_hba)
 * [`bootstrap_users`](#-patroni--bootstrap_users)
 * [`bootstrap_post_bootstrap`](#-patroni--bootstrap_post_bootstrap)
@@ -299,6 +300,14 @@ Data type: `String`
 Refer to Bootstrap configuration settings `locale` setting
 
 Default value: `'en_US.utf8'`
+
+##### <a name="-patroni--initdb_extra_parameters"></a>`initdb_extra_parameters`
+
+Data type: `Hash[String[1], Optional[Any]]`
+
+Additional parameters to pass to the PostgreSQL `initdb` command
+
+Default value: `{}`
 
 ##### <a name="-patroni--bootstrap_pg_hba"></a>`bootstrap_pg_hba`
 

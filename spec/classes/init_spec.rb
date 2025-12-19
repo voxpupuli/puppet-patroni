@@ -5,7 +5,7 @@ describe 'patroni' do
     context "on #{os}" do
       let(:facts) { os_facts }
       let(:node) { 'localhost' }
-      let(:params) { { 'scope' => 'testscope', 'ctl_authentication_username' => 'Username', 'ctl_authentication_password' => 'p@ssw0rd', 'ctl_insecure' => true } }
+      let(:params) { { 'scope' => 'testscope', 'ctl_authentication_username' => 'Username', 'ctl_authentication_password' => 'p@ssw0rd', 'ctl_insecure' => true, 'initdb_extra_parameters' => { 'wal-segsize' => 16, 'no-instructions' => :undef } } }
       let(:platform) { "#{facts[:os]['name']}-#{facts[:os]['release']['major']}" }
 
       it { is_expected.to compile.with_all_deps }
@@ -141,6 +141,8 @@ describe 'patroni' do
             'data-checksums',
             { 'encoding' => 'UTF8' },
             { 'locale' => 'en_US.utf8' },
+            { 'wal-segsize' => '16' },
+            'no-instructions',
           ],
           'pg_hba' => [
             'host all all 0.0.0.0/0 md5',
@@ -174,6 +176,8 @@ describe 'patroni' do
               'data-checksums',
               { 'encoding' => 'UTF8' },
               { 'locale' => 'en_US.utf8' },
+              { 'wal-segsize' => '16' },
+              'no-instructions',
             ],
             'pg_hba' => [
               'host all all 0.0.0.0/0 md5',

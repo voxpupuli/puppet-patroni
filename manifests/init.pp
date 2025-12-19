@@ -36,6 +36,8 @@
 #   Refer to Bootstrap configuration settings `encoding` setting
 # @param initdb_locale
 #   Refer to Bootstrap configuration settings `locale` setting
+# @param initdb_extra_parameters
+#   Additional parameters to pass to the PostgreSQL `initdb` command
 # @param bootstrap_pg_hba
 #   Refer to Bootstrap configuration settings `pg_hba` setting
 # @param bootstrap_users
@@ -293,6 +295,7 @@ class patroni (
   Boolean $initdb_data_checksums = true,
   String $initdb_encoding = 'UTF8',
   String $initdb_locale = 'en_US.utf8',
+  Hash[String[1], Optional[Any]] $initdb_extra_parameters = {},
   Array[String] $bootstrap_pg_hba = [
     'host all all 0.0.0.0/0 md5',
     'host replication rep_user 0.0.0.0/0 md5',
