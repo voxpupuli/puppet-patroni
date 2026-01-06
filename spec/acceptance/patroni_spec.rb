@@ -73,6 +73,39 @@ describe 'patroni class:' do
     end
   end
 
+  context 'check config_change_action' do
+    pp = <<-EOS
+      class { 'patroni':
+        scope                   => 'cluster',
+        use_etcd                => true,
+        config_change_action    => 'reload',
+        pgsql_connect_address   => "${facts['networking']['fqdn']}:5432",
+        restapi_connect_address => "${facts['networking']['fqdn']}:8008",
+        pgsql_parameters        => {
+          'max_connections' => 5000,
+        },
+        bootstrap_pg_hba        => [
+          'local all postgres ident',
+          'host all all 0.0.0.0/0 md5',
+          'host replication repl 0.0.0.0/0 md5',
+        ],
+        pgsql_pg_hba            => [
+          'local all postgres ident',
+          'host all all 0.0.0.0/0 md5',
+          'host replication repl 0.0.0.0/0 md5',
+        ],
+        superuser_username      => 'postgres',
+        superuser_password      => 'postgrespassword',
+        replication_username    => 'repl',
+        replication_password    => 'replpassword',
+      }
+    EOS
+    it 'runs successfully' do
+      apply_manifest_on(patronia, pp, catch_failures: true)
+      apply_manifest_on(patronia, pp, catch_changes: true)
+    end
+  end
+
   context 'add DCS config' do
     it 'runs successfully' do
       dcs_pp = <<-EOS
