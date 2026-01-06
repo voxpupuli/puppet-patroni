@@ -73,7 +73,7 @@ describe 'patroni class:' do
     end
   end
 
-  context 'check config_change_action' do
+  context 'reload on config change' do
     pp = <<-EOS
       class { 'patroni':
         scope                   => 'cluster',
@@ -100,9 +100,30 @@ describe 'patroni class:' do
         replication_password    => 'replpassword',
       }
     EOS
+
     it 'runs successfully' do
+      apply_manifest_on(patronia, etcd)
+      apply_manifest_on(patronib, etcd, catch_failures: true)
+      apply_manifest_on(patronia, etcd, catch_failures: true)
       apply_manifest_on(patronia, pp, catch_failures: true)
       apply_manifest_on(patronia, pp, catch_changes: true)
+      apply_manifest_on(patronib, pp, catch_failures: true)
+      apply_manifest_on(patronib, pp, catch_changes: true)
+    end
+
+    describe port(8008), node: patronia do
+      it { is_expected.to be_listening }
+    end
+    describe port(8008), node: patronib do
+      it { is_expected.to be_listening }
+    end
+    describe service('patroni'), node: patronia do
+      it { is_expected.to be_enabled }
+      it { is_expected.to be_running }
+    end
+    describe service('patroni'), node: patronib do
+      it { is_expected.to be_enabled }
+      it { is_expected.to be_running }
     end
   end
 
