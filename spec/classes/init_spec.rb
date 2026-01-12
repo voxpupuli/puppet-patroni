@@ -275,6 +275,23 @@ describe 'patroni' do
         )
       end
 
+      context 'config_change_action => reload' do
+        let(:params) { super().merge({ 'config_change_action' => 'reload' }) }
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_exec('patroni_reload').that_requires('Service[patroni]') }
+        it do
+          is_expected.to contain_file('patroni_config').with(
+            ensure: 'file',
+            path: platform_data(platform, :config_path),
+            owner: 'postgres',
+            group: 'postgres',
+            mode: '0600',
+            notify: 'Exec[patroni_reload]',
+          )
+        end
+      end
+
       context 'is_standby => true' do
         let(:params) { { 'scope' => 'testscope', 'is_standby' => true } }
 
