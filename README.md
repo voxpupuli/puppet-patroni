@@ -187,6 +187,30 @@ exec { 'patroni-restart-pending':
 }
 ```
 
+patroni_dcs_config assumes where the related cluster configuration file and the patronictl binary is.
+This is inherited from the [patronictl_config](https://github.com/voxpupuli/puppet-patroni/blob/8d542130a8d24899d138e75bc0416026d169098f/lib/puppet/type/patronictl_config.rb#L11-L19) type.
+You can explicitly set it like this:
+
+```puppet
+include patroni
+# required for patroni_dcs_config
+patronictl_config { 'config':
+  path   => '/usr/bin/patronictl',
+  config => '/etc/patroni/config.yml',
+}
+patroni_dcs_config { 'postgresql.parameters.max_connections':
+  value  => 200,
+  notify => Exec['patroni-restart-pending'],
+}
+
+exec { 'patroni-restart-pending':
+  path        => $facts['path'],
+  command     => "sleep 60 ; ${patroni::patronictl} -c ${patroni::config_path} restart ${patroni::scope} --pending --force",
+  refreshonly => true,
+  require     => Service['patroni'],
+}
+```
+
 ## Reference
 
 All of the Patroni settings I could find in the [Patroni Settings Documentation](https://github.com/zalando/patroni/blob/master/docs/SETTINGS.rst) are mapped to this module.
