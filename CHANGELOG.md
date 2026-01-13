@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-patroni/tree/v4.1.0) (2026-01-13)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- document patroni\_dcs\_config for package based installations [\#101](https://github.com/voxpupuli/puppet-patroni/pull/101) ([bastelfreak](https://github.com/bastelfreak))
+- feat\(initdb\): Add option initdb\_extra\_parameters to pass extra parameters to initdb [\#99](https://github.com/voxpupuli/puppet-patroni/pull/99) ([davidassigbi](https://github.com/davidassigbi))
+- Add option to choose \(reload/restart\) on config file changes [\#95](https://github.com/voxpupuli/puppet-patroni/pull/95) ([davidassigbi](https://github.com/davidassigbi))
+
+**Fixed bugs:**
+
+- patroni\_dcs\_config: handle empty configuration [\#104](https://github.com/voxpupuli/puppet-patroni/pull/104) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- Patroni is always restarted when configuration file changes even though reload is enough [\#89](https://github.com/voxpupuli/puppet-patroni/issues/89)
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-patroni/tree/v4.0.0) (2025-11-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v3.2.0...v4.0.0)
