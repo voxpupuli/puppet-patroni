@@ -17,6 +17,10 @@ Puppet::Type.type(:patroni_dcs_config).provide(:patronictl, parent: Puppet::Prov
     end
     Puppet.debug("show-config output: #{output}")
     data = YAML.safe_load(output)
+    # when patroni isn't running, the command will return an empty string or just the yaml dashes
+    # YAML.safe_load will return nil. In that case we can directly return configs, and don't call flatten_hash on nil
+    return configs unless data
+
     flatten_hash(data).each_pair do |key, value|
       config = {}
       config[:name] = key
