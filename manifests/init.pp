@@ -240,6 +240,8 @@
 #   Refer to CTL configuration `keyfile` setting
 # @param ctl_keyfile_password
 #   Refer to CTL configuration `keyfile_password` setting
+# @param tags
+#   Refer to Tags setting, this is a hash which will contain all tags that should be added
 # @param manage_postgresql
 #   Boolean to determine if postgresql is managed
 # @param postgresql_version
@@ -446,6 +448,9 @@ class patroni (
   Optional[String[1]] $ctl_certfile = undef,
   Optional[String[1]] $ctl_keyfile = undef,
   Optional[String[1]] $ctl_keyfile_password = undef,
+
+  # Tags Settings
+  Hash $tags = {},
 
   # Module Specific Settings
   Boolean $manage_postgresql = true,

@@ -143,6 +143,7 @@ The following parameters are available in the `patroni` class:
 * [`ctl_certfile`](#-patroni--ctl_certfile)
 * [`ctl_keyfile`](#-patroni--ctl_keyfile)
 * [`ctl_keyfile_password`](#-patroni--ctl_keyfile_password)
+* [`tags`](#-patroni--tags)
 * [`manage_postgresql`](#-patroni--manage_postgresql)
 * [`postgresql_version`](#-patroni--postgresql_version)
 * [`package_name`](#-patroni--package_name)
@@ -642,6 +643,14 @@ Data type: `Array[Hash]`
 Refer to PostgreSQL configuration settings `replica_method` setting
 
 Default value: `[]`
+
+##### <a name="-patroni--tags"></a>`tags`
+
+Data type: `Hash`
+
+Refer to Tags setting, this is a hash which will contain all tags that should be added
+
+Default value: `{}`
 
 ##### <a name="-patroni--manage_postgresql_repo"></a>`manage_postgresql_repo`
 
