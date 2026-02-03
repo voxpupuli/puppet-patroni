@@ -370,55 +370,51 @@ Default value: `'postgres'`
 
 ##### <a name="-patroni--superuser_password"></a>`superuser_password`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 Refer to PostgreSQL configuration settings superuser password
 
-Default value: `'changeme'`
+Default value: `undef`
 
-##### <a name="-patroni--superuser_sslmode"><a/>superuser_sslmode
+##### <a name="-patroni--superuser_sslmode"></a>`superuser_sslmode`
 
-Data type: `Optional[String]`
+Data type: `Optional[Enum['disable','allow','prefer','require','verify-ca','verify-full']]`
 
-Refer to PostgreSQL configuration settings superuser sslmode
+Refer to PostgreSQL configuration setting superuser sslmode
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="-patroni--superuser_sslkey"><a/>superuser_sslkey
+##### <a name="-patroni--superuser_sslkey"></a>`superuser_sslkey`
 
-Data type: `Optional[String]`
+Data type: `Optional[Stdlib::Absolutepath]`
 
-Refer to PostgreSQL configuration settings superuser sslkey
+Refer to PostgreSQL configuration setting superuser sslkey
 
-Default value: ``undef``
+Default value: `undef`
 
-Refer to PostgreSQL configuration settings superuser sslkey
+##### <a name="-patroni--superuser_sslpassword"></a>`superuser_sslpassword`
 
-Default value: ``undef``
+Data type: `Optional[String[1]]`
 
-##### <a name="-patroni--superuser_sslpassword"><a/>superuser_sslpassword
+Refer to PostgreSQL configuration setting superuser sslpassword
 
-Data type: `Optional[String]`
+Default value: `undef`
 
-Refer to PostgreSQL configuration settings superuser sslpassword
+##### <a name="-patroni--superuser_sslcert"></a>`superuser_sslcert`
 
-Default value: ``undef``
+Data type: `Optional[Stdlib::Absolutepath]`
 
-##### <a name="-patroni--superuser_sslcert"><a/>superuser_sslcert
+Refer to PostgreSQL configuration setting superuser sslcert
 
-Data type: `Optional[String]`
+Default value: `undef`
 
-Refer to PostgreSQL configuration settings superuser sslcert
+##### <a name="-patroni--superuser_sslrootcert"></a>`superuser_sslrootcert`
 
-Default value: ``undef``
+Data type: `Optional[Stdlib::Absolutepath]`
 
-##### <a name="-patroni--superuser_sslrootcert"><a/>superuser_sslrootcert
+Refer to PostgreSQL configuration setting superuser sslrootcert
 
-Data type: `Optional[String]`
-
-Refer to PostgreSQL configuration settings superuser sslrootcert
-
-Default value: ``undef``
+Default value: `undef`
 
 ##### <a name="-patroni--replication_username"></a>`replication_username`
 
@@ -430,51 +426,51 @@ Default value: `'rep_user'`
 
 ##### <a name="-patroni--replication_password"></a>`replication_password`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 Refer to PostgreSQL configuration settings replication password
 
-Default value: `'changeme'`
+Default value: `undef`
 
-##### <a name="-patroni--replication_sslmode"><a/>replication_sslmode
+##### <a name="-patroni--replication_sslmode"></a>`replication_sslmode`
 
-Data type: `Optional[String]`
+Data type: `Optional[Enum['disable','allow','prefer','require','verify-ca','verify-full']]`
 
-Refer to PostgreSQL configuration settings replication sslmode
+Refer to PostgreSQL configuration setting replication sslmode
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="-patroni--replication_sslkey"><a/>replication_sslkey
+##### <a name="-patroni--replication_sslkey"></a>`replication_sslkey`
 
-Data type: `Optional[String]`
+Data type: `Optional[Stdlib::Absolutepath]`
 
-Refer to PostgreSQL configuration settings replication sslkey
+Refer to PostgreSQL configuration setting replication sslkey
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="-patroni--replication_sslpassword"><a/>replication_sslpassword
+##### <a name="-patroni--replication_sslpassword"></a>`replication_sslpassword`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
-Refer to PostgreSQL configuration settings replication sslpassword
+Refer to PostgreSQL configuration setting replication sslpassword
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="-patroni--replication_sslcert"><a/>replication_sslcert
+##### <a name="-patroni--replication_sslcert"></a>`replication_sslcert`
 
-Data type: `Optional[String]`
+Data type: `Optional[Stdlib::Absolutepath]`
 
-Refer to PostgreSQL configuration settings replication sslcert
+Refer to PostgreSQL configuration setting replication sslcert
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="-patroni--replication_sslrootcert"><a/>replication_sslrootcert
+##### <a name="-patroni--replication_sslrootcert"></a>`replication_sslrootcert`
 
-Data type: `Optional[String]`
+Data type: `Optional[Stdlib::Absolutepath]`
 
-Refer to PostgreSQL configuration settings replication sslrootcert
+Refer to PostgreSQL configuration setting replication sslrootcert
 
-Default value: ``undef``
+Default value: `undef`
 
 ##### <a name="-patroni--callback_on_reload"></a>`callback_on_reload`
 
@@ -643,14 +639,6 @@ Data type: `Array[Hash]`
 Refer to PostgreSQL configuration settings `replica_method` setting
 
 Default value: `[]`
-
-##### <a name="-patroni--tags"></a>`tags`
-
-Data type: `Hash`
-
-Refer to Tags setting, this is a hash which will contain all tags that should be added
-
-Default value: `{}`
 
 ##### <a name="-patroni--manage_postgresql_repo"></a>`manage_postgresql_repo`
 
@@ -1147,6 +1135,14 @@ Data type: `Optional[String[1]]`
 Refer to CTL configuration `keyfile_password` setting
 
 Default value: `undef`
+
+##### <a name="-patroni--tags"></a>`tags`
+
+Data type: `Hash`
+
+Refer to Tags setting, this is a hash which will contain all tags that should be added
+
+Default value: `{}`
 
 ##### <a name="-patroni--manage_postgresql"></a>`manage_postgresql`
 
