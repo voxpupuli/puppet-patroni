@@ -410,6 +410,40 @@ describe 'patroni' do
         end
       end
 
+      context 'tags' do
+        let(:params) do
+          {
+            'scope' => 'testscope',
+            'tags'  => {
+              'boolean_true'      => true,
+              'boolean_false'     => false,
+              'integer'           => 69,
+              'integer_as_string' => '69',
+              'float'             => 1.1,
+              'float_as_string'   => '1.1',
+              'string'            => 'simple',
+              'string_long'       => 'long string with spaces'
+            }
+          }
+        end
+
+        it 'has valid config' do
+          content = catalogue.resource('file', 'patroni_config').send(:parameters)[:content]
+          config = YAML.safe_load(content)
+          expected = {
+            'boolean_true'      => true,
+            'boolean_false'     => false,
+            'integer'           => 69,
+            'integer_as_string' => 69,
+            'float'             => 1.1,
+            'float_as_string'   => 1.1,
+            'string'            => 'simple',
+            'string_long'       => 'long string with spaces'
+          }
+          expect(config['tags']).to include(expected)
+        end
+      end
+
       context 'install_method => package' do
         let(:params) { { 'scope' => 'testscope', 'install_method' => 'package' } }
 
