@@ -355,6 +355,7 @@ describe 'patroni' do
           {
             'scope'                 => 'testscope',
             'superuser_username'    => 'superuser',
+            'superuser_password'    => 'secretinitpass',
             'superuser_sslmode'     => 'require',
             'superuser_sslkey'      => '/var/lib/pgsql/ssl_key.pem',
             'superuser_sslpassword' => 'secretpass',
@@ -367,16 +368,15 @@ describe 'patroni' do
           content = catalogue.resource('file', 'patroni_config').send(:parameters)[:content]
           config = YAML.safe_load(content)
           expected = {
-            'superuser' => {
-              'sslcert'     => '/var/lib/pgsql/ssl_cert.pem',
-              'sslkey'      => '/var/lib/pgsql/ssl_key.pem',
-              'sslmode'     => 'require',
-              'sslpassword' => 'secretpass',
-              'sslrootcert' => '/var/lib/pgsql/root_cert.pem',
-              'username'    => 'superuser',
-            },
+            'sslcert'     => '/var/lib/pgsql/ssl_cert.pem',
+            'sslkey'      => '/var/lib/pgsql/ssl_key.pem',
+            'sslmode'     => 'require',
+            'sslpassword' => 'secretpass',
+            'sslrootcert' => '/var/lib/pgsql/root_cert.pem',
+            'username'    => 'superuser',
+            'password'    => 'secretinitpass',
           }
-          expect(config).to include(expected)
+          expect(config['postgresql']['authentication']['superuser']).to include(expected)
         end
       end
 
@@ -385,6 +385,7 @@ describe 'patroni' do
           {
             'scope'                   => 'testscope',
             'replication_username'    => 'replication',
+            'replication_password'    => 'secretinitpass',
             'replication_sslmode'     => 'require',
             'replication_sslkey'      => '/var/lib/pgsql/ssl_key.pem',
             'replication_sslpassword' => 'secretpass',
@@ -397,17 +398,15 @@ describe 'patroni' do
           content = catalogue.resource('file', 'patroni_config').send(:parameters)[:content]
           config = YAML.safe_load(content)
           expected = {
-            'replication' => {
-              'username'    => 'replication',
-              'password'    => 'changeme',
-              'sslmode'     => 'require',
-              'sslkey'      => '/var/lib/pgsql/ssl_key.pem',
-              'sslpassword' => 'secretpass',
-              'sslcert'     => '/var/lib/pgsql/ssl_cert.pem',
-              'sslrootcert' => '/var/lib/pgsql/root_cert.pem'
-            }
+            'username'    => 'replication',
+            'password'    => 'secretinitpass',
+            'sslmode'     => 'require',
+            'sslkey'      => '/var/lib/pgsql/ssl_key.pem',
+            'sslpassword' => 'secretpass',
+            'sslcert'     => '/var/lib/pgsql/ssl_cert.pem',
+            'sslrootcert' => '/var/lib/pgsql/root_cert.pem'
           }
-          expect(config).to include(expected)
+          expect(config['postgresql']['authentication']['replication']).to include(expected)
         end
       end
 

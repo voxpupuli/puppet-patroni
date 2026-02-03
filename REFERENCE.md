@@ -362,7 +362,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--superuser_username"></a>`superuser_username`
 
-Data type: `String`
+Data type: `String[1]`
 
 Refer to PostgreSQL configuration settings superuser username
 
@@ -370,11 +370,11 @@ Default value: `'postgres'`
 
 ##### <a name="-patroni--superuser_password"></a>`superuser_password`
 
-Data type: `Optional[String[1]]`
+Data type: `String[1]`
 
 Refer to PostgreSQL configuration settings superuser password
 
-Default value: `undef`
+Default value: `'changeme'`
 
 ##### <a name="-patroni--superuser_sslmode"></a>`superuser_sslmode`
 
@@ -418,7 +418,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--replication_username"></a>`replication_username`
 
-Data type: `String`
+Data type: `String[1]`
 
 Refer to PostgreSQL configuration settings replication username
 
@@ -426,11 +426,11 @@ Default value: `'rep_user'`
 
 ##### <a name="-patroni--replication_password"></a>`replication_password`
 
-Data type: `Optional[String[1]]`
+Data type: `String[1]`
 
 Refer to PostgreSQL configuration settings replication password
 
-Default value: `undef`
+Default value: `'changeme'`
 
 ##### <a name="-patroni--replication_sslmode"></a>`replication_sslmode`
 

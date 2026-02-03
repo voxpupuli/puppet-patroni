@@ -88,9 +88,7 @@ postgresql:
   authentication:
     superuser:
       username: <%= @superuser_username %>
-<% if @superuser_password -%>
       password: <%= @superuser_password %>
-<% end -%>
 <% if @superuser_sslmode -%>
       sslmode: <%= @superuser_sslmode %>
 <% end -%>
@@ -108,9 +106,7 @@ postgresql:
 <% end -%>
     replication:
       username: <%= @replication_username %>
-<% if @replication_password -%>
       password: <%= @replication_password %>
-<% end -%>
 <% if @replication_sslmode -%>
       sslmode: <%= @replication_sslmode %>
 <% end -%>
