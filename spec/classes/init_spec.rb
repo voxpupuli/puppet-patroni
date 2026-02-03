@@ -383,7 +383,7 @@ describe 'patroni' do
       context 'replication user certificate authentication' do
         let(:params) do
           {
-            'scope'                 => 'testscope',
+            'scope'                   => 'testscope',
             'replication_username'    => 'replication',
             'replication_sslmode'     => 'require',
             'replication_sslkey'      => '/var/lib/pgsql/ssl_key.pem',
@@ -397,14 +397,14 @@ describe 'patroni' do
           content = catalogue.resource('file', 'patroni_config').send(:parameters)[:content]
           config = YAML.safe_load(content)
           expected = {
-            "replication" => {
-              "username"    => "replication",
-              "password"    => "changeme",
-              "sslmode"     => "require",
-              "sslkey"      => "/var/lib/pgsql/ssl_key.pem",
-              "sslpassword" => "secretpass",
-              "sslcert"     => "/var/lib/pgsql/ssl_cert.pem",
-              "sslrootcert" =>"/var/lib/pgsql/root_cert.pem"
+            'replication' => {
+              'username'    => 'replication',
+              'password'    => 'changeme',
+              'sslmode'     => 'require',
+              'sslkey'      => '/var/lib/pgsql/ssl_key.pem',
+              'sslpassword' => 'secretpass',
+              'sslcert'     => '/var/lib/pgsql/ssl_cert.pem',
+              'sslrootcert' => '/var/lib/pgsql/root_cert.pem'
             }
           }
           expect(config).to include(expected)
