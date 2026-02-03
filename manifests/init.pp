@@ -50,10 +50,30 @@
 #   Refer to PostgreSQL configuration settings superuser username
 # @param superuser_password
 #   Refer to PostgreSQL configuration settings superuser password
+# @param superuser_sslmode
+#   Refer to PostgreSQL configuration setting superuser sslmode
+# @param superuser_sslkey
+#   Refer to PostgreSQL configuration setting superuser sslkey
+# @param superuser_sslpassword
+#   Refer to PostgreSQL configuration setting superuser sslpassword
+# @param superuser_sslcert
+#   Refer to PostgreSQL configuration setting superuser sslcert
+# @param superuser_sslrootcert
+#   Refer to PostgreSQL configuration setting superuser sslrootcert
 # @param replication_username
 #   Refer to PostgreSQL configuration settings replication username
 # @param replication_password
 #   Refer to PostgreSQL configuration settings replication password
+# @param replication_sslmode
+#   Refer to PostgreSQL configuration setting replication sslmode
+# @param replication_sslkey
+#   Refer to PostgreSQL configuration setting replication sslkey
+# @param replication_sslpassword
+#   Refer to PostgreSQL configuration setting replication sslpassword
+# @param replication_sslcert
+#   Refer to PostgreSQL configuration setting replication sslcert
+# @param replication_sslrootcert
+#   Refer to PostgreSQL configuration setting replication sslrootcert
 # @param callback_on_reload
 #   Refer to PostgreSQL configuration settings callbacks `on_reload`
 # @param callback_on_restart
@@ -220,6 +240,8 @@
 #   Refer to CTL configuration `keyfile` setting
 # @param ctl_keyfile_password
 #   Refer to CTL configuration `keyfile_password` setting
+# @param tags
+#   Refer to Tags setting, this is a hash which will contain all tags that should be added
 # @param manage_postgresql
 #   Boolean to determine if postgresql is managed
 # @param postgresql_version
@@ -313,10 +335,20 @@ class patroni (
   String[1] $standby_cluster_primary_slot_name = 'patroni',
 
   # PostgreSQL Settings
-  String $superuser_username = 'postgres',
-  String $superuser_password = 'changeme',
-  String $replication_username = 'rep_user',
-  String $replication_password = 'changeme',
+  String[1] $superuser_username = 'postgres',
+  String[1] $superuser_password = 'changeme',
+  Optional[Enum['disable','allow','prefer','require','verify-ca','verify-full']] $superuser_sslmode = undef,
+  Optional[Stdlib::Absolutepath] $superuser_sslkey = undef,
+  Optional[String[1]] $superuser_sslpassword = undef,
+  Optional[Stdlib::Absolutepath] $superuser_sslcert = undef,
+  Optional[Stdlib::Absolutepath] $superuser_sslrootcert = undef,
+  String[1] $replication_username = 'rep_user',
+  String[1] $replication_password = 'changeme',
+  Optional[Enum['disable','allow','prefer','require','verify-ca','verify-full']] $replication_sslmode = undef,
+  Optional[Stdlib::Absolutepath] $replication_sslkey = undef,
+  Optional[String[1]] $replication_sslpassword = undef,
+  Optional[Stdlib::Absolutepath] $replication_sslcert = undef,
+  Optional[Stdlib::Absolutepath] $replication_sslrootcert = undef,
   Optional[String] $callback_on_reload = undef,
   Optional[String] $callback_on_restart = undef,
   Optional[String] $callback_on_role_change = undef,
@@ -416,6 +448,9 @@ class patroni (
   Optional[String[1]] $ctl_certfile = undef,
   Optional[String[1]] $ctl_keyfile = undef,
   Optional[String[1]] $ctl_keyfile_password = undef,
+
+  # Tags Settings
+  Hash $tags = {},
 
   # Module Specific Settings
   Boolean $manage_postgresql = true,
