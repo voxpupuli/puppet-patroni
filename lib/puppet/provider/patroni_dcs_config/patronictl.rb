@@ -40,12 +40,12 @@ Puppet::Type.type(:patroni_dcs_config).provide(:patronictl, parent: Puppet::Prov
   end
 
   def initialize(value = {})
-    super(value)
+    super
     @property_flush = {}
   end
 
   type_properties.each do |prop|
-    define_method "#{prop}=".to_sym do |value|
+    define_method :"#{prop}=" do |value|
       @property_flush[prop] = value
     end
   end

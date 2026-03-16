@@ -420,7 +420,7 @@ describe 'patroni' do
         let :params do
           {
             http_proxy: 'https://proxy.corp.local:3128',
-            scope: '14-mycluster'
+            scope: '14-mycluster',
           }
         end
 
