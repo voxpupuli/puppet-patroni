@@ -68,6 +68,5 @@ def platform_data(p, d)
                        else
                          p
                        end
-  default = data['default'][d]
-  data.fetch(sanitized_platform, data['default']).fetch(d, default)
+  data.dig(sanitized_platform, d) || data['default'][d]
 end
