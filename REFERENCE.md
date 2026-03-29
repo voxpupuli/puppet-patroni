@@ -48,8 +48,18 @@ The following parameters are available in the `patroni` class:
 * [`bootstrap_post_init`](#-patroni--bootstrap_post_init)
 * [`superuser_username`](#-patroni--superuser_username)
 * [`superuser_password`](#-patroni--superuser_password)
+* [`superuser_sslmode`](#-patroni--superuser_sslmode)
+* [`superuser_sslkey`](#-patroni--superuser_sslkey)
+* [`superuser_sslpassword`](#-patroni--superuser_sslpassword)
+* [`superuser_sslcert`](#-patroni--superuser_sslcert)
+* [`superuser_sslrootcert`](#-patroni--superuser_sslrootcert)
 * [`replication_username`](#-patroni--replication_username)
 * [`replication_password`](#-patroni--replication_password)
+* [`replication_sslmode`](#-patroni--replication_sslmode)
+* [`replication_sslkey`](#-patroni--replication_sslkey)
+* [`replication_sslpassword`](#-patroni--replication_sslpassword)
+* [`replication_sslcert`](#-patroni--replication_sslcert)
+* [`replication_sslrootcert`](#-patroni--replication_sslrootcert)
 * [`callback_on_reload`](#-patroni--callback_on_reload)
 * [`callback_on_restart`](#-patroni--callback_on_restart)
 * [`callback_on_role_change`](#-patroni--callback_on_role_change)
@@ -133,6 +143,7 @@ The following parameters are available in the `patroni` class:
 * [`ctl_certfile`](#-patroni--ctl_certfile)
 * [`ctl_keyfile`](#-patroni--ctl_keyfile)
 * [`ctl_keyfile_password`](#-patroni--ctl_keyfile_password)
+* [`tags`](#-patroni--tags)
 * [`manage_postgresql`](#-patroni--manage_postgresql)
 * [`postgresql_version`](#-patroni--postgresql_version)
 * [`package_name`](#-patroni--package_name)
@@ -351,7 +362,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--superuser_username"></a>`superuser_username`
 
-Data type: `String`
+Data type: `String[1]`
 
 Refer to PostgreSQL configuration settings superuser username
 
@@ -359,15 +370,55 @@ Default value: `'postgres'`
 
 ##### <a name="-patroni--superuser_password"></a>`superuser_password`
 
-Data type: `String`
+Data type: `String[1]`
 
 Refer to PostgreSQL configuration settings superuser password
 
 Default value: `'changeme'`
 
+##### <a name="-patroni--superuser_sslmode"></a>`superuser_sslmode`
+
+Data type: `Optional[Enum['disable','allow','prefer','require','verify-ca','verify-full']]`
+
+Refer to PostgreSQL configuration setting superuser sslmode
+
+Default value: `undef`
+
+##### <a name="-patroni--superuser_sslkey"></a>`superuser_sslkey`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Refer to PostgreSQL configuration setting superuser sslkey
+
+Default value: `undef`
+
+##### <a name="-patroni--superuser_sslpassword"></a>`superuser_sslpassword`
+
+Data type: `Optional[String[1]]`
+
+Refer to PostgreSQL configuration setting superuser sslpassword
+
+Default value: `undef`
+
+##### <a name="-patroni--superuser_sslcert"></a>`superuser_sslcert`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Refer to PostgreSQL configuration setting superuser sslcert
+
+Default value: `undef`
+
+##### <a name="-patroni--superuser_sslrootcert"></a>`superuser_sslrootcert`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Refer to PostgreSQL configuration setting superuser sslrootcert
+
+Default value: `undef`
+
 ##### <a name="-patroni--replication_username"></a>`replication_username`
 
-Data type: `String`
+Data type: `String[1]`
 
 Refer to PostgreSQL configuration settings replication username
 
@@ -375,11 +426,51 @@ Default value: `'rep_user'`
 
 ##### <a name="-patroni--replication_password"></a>`replication_password`
 
-Data type: `String`
+Data type: `String[1]`
 
 Refer to PostgreSQL configuration settings replication password
 
 Default value: `'changeme'`
+
+##### <a name="-patroni--replication_sslmode"></a>`replication_sslmode`
+
+Data type: `Optional[Enum['disable','allow','prefer','require','verify-ca','verify-full']]`
+
+Refer to PostgreSQL configuration setting replication sslmode
+
+Default value: `undef`
+
+##### <a name="-patroni--replication_sslkey"></a>`replication_sslkey`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Refer to PostgreSQL configuration setting replication sslkey
+
+Default value: `undef`
+
+##### <a name="-patroni--replication_sslpassword"></a>`replication_sslpassword`
+
+Data type: `Optional[String[1]]`
+
+Refer to PostgreSQL configuration setting replication sslpassword
+
+Default value: `undef`
+
+##### <a name="-patroni--replication_sslcert"></a>`replication_sslcert`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Refer to PostgreSQL configuration setting replication sslcert
+
+Default value: `undef`
+
+##### <a name="-patroni--replication_sslrootcert"></a>`replication_sslrootcert`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Refer to PostgreSQL configuration setting replication sslrootcert
+
+Default value: `undef`
 
 ##### <a name="-patroni--callback_on_reload"></a>`callback_on_reload`
 
@@ -1044,6 +1135,14 @@ Data type: `Optional[String[1]]`
 Refer to CTL configuration `keyfile_password` setting
 
 Default value: `undef`
+
+##### <a name="-patroni--tags"></a>`tags`
+
+Data type: `Hash`
+
+Refer to Tags setting, this is a hash which will contain all tags that should be added
+
+Default value: `{}`
 
 ##### <a name="-patroni--manage_postgresql"></a>`manage_postgresql`
 
