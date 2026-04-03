@@ -136,6 +136,15 @@ describe 'patroni class:' do
           notify => Exec['patroni-restart-pending'],
         }
 
+        patroni_dcs_config { 'postgresql.pg_hba':
+          value  => [
+            'local all postgres ident',
+            'host all all 0.0.0.0/0 md5',
+            'host replication repl 0.0.0.0/0 md5',
+          ],
+          notify => Exec['patroni-restart-pending'],
+        }
+
         exec { 'patroni-restart-pending':
           path        => '/usr/bin:/bin:/usr/sbin:/sbin',
           command     => "sleep 60 ; ${patroni::patronictl} -c ${patroni::config_path} restart ${patroni::scope} --pending --force",
