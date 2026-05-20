@@ -1273,6 +1273,17 @@ patroni_dcs_config { 'postgresql.params.max_connections':
 }
 ```
 
+##### Set PostgreSQL HBA entries
+
+```puppet
+patroni_dcs_config { 'postgresql.pg_hba':
+  value => [
+    'host all all 127.0.0.1/32 scram-sha-256',
+    'host replication replicator 127.0.0.1/32 scram-sha-256',
+  ]
+}
+```
+
 #### Properties
 
 The following properties are available in the `patroni_dcs_config` type.
