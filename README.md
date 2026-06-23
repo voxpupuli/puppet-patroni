@@ -31,7 +31,7 @@ HA with PostgreSQL, so please take a look at the myriad of other options to make
 that is right for your environment.
 
 This module alone is not enough to run a fully HA and replicated service.  Please read up on your options
-at [Patroni's GitHub Project](https://github.com/zalando/patroni).  In our case, we use haproxy, using [puppetlabs's haproxxy module](https://forge.puppet.com/puppetlabs/haproxy), and etcd, using [Tailored Automation's etcd module](https://forge.puppet.com/tailoredautomation/etcd).
+at [Patroni's GitHub Project](https://github.com/zalando/patroni).  In our case, we use haproxy, using [puppetlabs's haproxxy module](https://forge.puppet.com/puppetlabs/haproxy), and etcd, using [VoxPupuli's etcd module](https://forge.puppet.com/modules/puppet/etcd).
 
 This module was originally written by [Jadestorm](https://github.com/jadestorm/). Thank you!!!
 
@@ -85,17 +85,21 @@ Below is a full example:
 # First PostgreSQL server
 node pg1 {
   class { 'etcd':
-    etcd_name                   => $facts['networking']['hostname'],
-    listen_client_urls          => 'http://0.0.0.0:2379',
-    advertise_client_urls       => "http://${facts['networking']['fqdn']}:2379",
-    listen_peer_urls            => 'http://0.0.0.0:2380',
-    initial_advertise_peer_urls => "http://${facts['networking']['fqdn']}:2380",
-    initial_cluster             => [
-      'pgarb=http://pgarb.example.org:2380',
-      'pg1=http://pg1.example.org:2380',
-      'pg2=http://pg2.example.org:2380',
-    ],
-    initial_cluster_state       => 'existing',
+    config => {
+      'data-dir'                    => '/var/lib/etcd',
+      'name'                        => $facts['networking']['hostname'],
+      'listen-client-urls'          => 'http://0.0.0.0:2379',
+      'advertise-client-urls'       => "http://${facts['networking']['fqdn']}:2379",
+      'listen-peer-urls'            => 'http://0.0.0.0:2380',
+      'initial-advertise-peer-urls' => "http://${facts['networking']['fqdn']}:2380",
+      'initial-cluster'             => [
+        'pgarb=http://pgarb.example.org:2380',
+        'pg1=http://pg1.example.org:2380',
+        'pg2=http://pg2.example.org:2380',
+      ],
+      'initial-cluster-token'       => 'my-etcd-cluster',
+      'initial-cluster-state'       => 'existing',
+    }
   }
 
   class { 'patroni':
@@ -119,17 +123,21 @@ node pg1 {
 # Second PostgreSQL server
 node pg2 {
   class { 'etcd':
-    etcd_name                   => $facts['networking']['hostname'],
-    listen_client_urls          => 'http://0.0.0.0:2379',
-    advertise_client_urls       => "http://${facts['networking']['fqdn']}:2379",
-    listen_peer_urls            => 'http://0.0.0.0:2380',
-    initial_advertise_peer_urls => "http://${facts['networking']['fqdn']}:2380",
-    initial_cluster             => [
-      'pgarb=http://pgarb.example.org:2380',
-      'pg1=http://pg1.example.org:2380',
-      'pg2=http://pg2.example.org:2380',
-    ],
-    initial_cluster_state       => 'existing',
+    config => {
+      'data-dir'                    => '/var/lib/etcd',
+      'name'                        => $facts['networking']['hostname'],
+      'listen-client-urls'          => 'http://0.0.0.0:2379',
+      'advertise-client-urls'       => "http://${facts['networking']['fqdn']}:2379",
+      'listen-peer-urls'            => 'http://0.0.0.0:2380',
+      'initial-advertise-peer-urls' => "http://${facts['networking']['fqdn']}:2380",
+      'initial-cluster'             => [
+        'pgarb=http://pgarb.example.org:2380',
+        'pg1=http://pg1.example.org:2380',
+        'pg2=http://pg2.example.org:2380',
+      ],
+      'initial-cluster-token'       => 'my-etcd-cluster',
+      'initial-cluster-state'       => 'existing',
+    }
   }
 
   class { 'patroni':
@@ -153,17 +161,21 @@ node pg2 {
 # Simple etcd arbitrator node, meaning it serves no content of it's own, just helps keep quorum
 node pgarb {
   class { 'etcd':
-    etcd_name                   => $facts['networking']['hostname'],
-    listen_client_urls          => 'http://0.0.0.0:2379',
-    advertise_client_urls       => "http://${facts['networking']['fqdn']}:2379",
-    listen_peer_urls            => 'http://0.0.0.0:2380',
-    initial_advertise_peer_urls => "http://${facts['networking']['fqdn']}:2380",
-    initial_cluster             => [
-      'pgarb=http://pgarb.example.org:2380',
-      'pg1=http://pg1.example.org:2380',
-      'pg2=http://pg2.example.org:2380',
-    ],
-    initial_cluster_state       => 'existing',
+    config => {
+      'data-dir'                    => '/var/lib/etcd',
+      'name'                        => $facts['networking']['hostname'],
+      'listen-client-urls'          => 'http://0.0.0.0:2379',
+      'advertise-client-urls'       => "http://${facts['networking']['fqdn']}:2379",
+      'listen-peer-urls'            => 'http://0.0.0.0:2380',
+      'initial-advertise-peer-urls' => "http://${facts['networking']['fqdn']}:2380",
+      'initial-cluster'             => [
+        'pgarb=http://pgarb.example.org:2380',
+        'pg1=http://pg1.example.org:2380',
+        'pg2=http://pg2.example.org:2380',
+      ],
+      'initial-cluster-token'       => 'my-etcd-cluster',
+      'initial-cluster-state'       => 'existing',
+    }
   }
 }
 ```
