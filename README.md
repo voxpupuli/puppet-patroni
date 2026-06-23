@@ -86,20 +86,16 @@ Below is a full example:
 node pg1 {
   class { 'etcd':
     config => {
+      'name'                        => 'pg1',
       'data-dir'                    => '/var/lib/etcd',
-      'name'                        => $facts['networking']['hostname'],
       'listen-client-urls'          => 'http://0.0.0.0:2379',
       'advertise-client-urls'       => "http://${facts['networking']['fqdn']}:2379",
       'listen-peer-urls'            => 'http://0.0.0.0:2380',
       'initial-advertise-peer-urls' => "http://${facts['networking']['fqdn']}:2380",
-      'initial-cluster'             => [
-        'pgarb=http://pgarb.example.org:2380',
-        'pg1=http://pg1.example.org:2380',
-        'pg2=http://pg2.example.org:2380',
-      ],
+      'initial-cluster'             => 'pgarb=http://pgarb.example.org:2380,pg1=http://pg1.example.org:2380,pg2=http://pg2.example.org:2380',
       'initial-cluster-token'       => 'my-etcd-cluster',
       'initial-cluster-state'       => 'existing',
-    }
+    },
   }
 
   class { 'patroni':
@@ -124,20 +120,16 @@ node pg1 {
 node pg2 {
   class { 'etcd':
     config => {
+      'name'                        => 'pg2',
       'data-dir'                    => '/var/lib/etcd',
-      'name'                        => $facts['networking']['hostname'],
       'listen-client-urls'          => 'http://0.0.0.0:2379',
       'advertise-client-urls'       => "http://${facts['networking']['fqdn']}:2379",
       'listen-peer-urls'            => 'http://0.0.0.0:2380',
       'initial-advertise-peer-urls' => "http://${facts['networking']['fqdn']}:2380",
-      'initial-cluster'             => [
-        'pgarb=http://pgarb.example.org:2380',
-        'pg1=http://pg1.example.org:2380',
-        'pg2=http://pg2.example.org:2380',
-      ],
+      'initial-cluster'             => 'pgarb=http://pgarb.example.org:2380,pg1=http://pg1.example.org:2380,pg2=http://pg2.example.org:2380',
       'initial-cluster-token'       => 'my-etcd-cluster',
       'initial-cluster-state'       => 'existing',
-    }
+    },
   }
 
   class { 'patroni':
@@ -162,20 +154,16 @@ node pg2 {
 node pgarb {
   class { 'etcd':
     config => {
+      'name'                        => 'pgarb',
       'data-dir'                    => '/var/lib/etcd',
-      'name'                        => $facts['networking']['hostname'],
       'listen-client-urls'          => 'http://0.0.0.0:2379',
       'advertise-client-urls'       => "http://${facts['networking']['fqdn']}:2379",
       'listen-peer-urls'            => 'http://0.0.0.0:2380',
       'initial-advertise-peer-urls' => "http://${facts['networking']['fqdn']}:2380",
-      'initial-cluster'             => [
-        'pgarb=http://pgarb.example.org:2380',
-        'pg1=http://pg1.example.org:2380',
-        'pg2=http://pg2.example.org:2380',
-      ],
+      'initial-cluster'             => 'pgarb=http://pgarb.example.org:2380,pg1=http://pg1.example.org:2380,pg2=http://pg2.example.org:2380',
       'initial-cluster-token'       => 'my-etcd-cluster',
       'initial-cluster-state'       => 'existing',
-    }
+    },
   }
 }
 ```
