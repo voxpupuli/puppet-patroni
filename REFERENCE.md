@@ -1328,4 +1328,3 @@ The name of the resource.
 patronictl path
 
 Default value: `/opt/app/patroni/bin/patronictl`
-
