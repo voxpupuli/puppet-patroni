@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.3.0](https://github.com/voxpupuli/puppet-patroni/tree/v4.3.0) (2026-10-16)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v4.2.0...v4.3.0)
+
+**Implemented enhancements:**
+
+- puppetlabs/stdlib: Allow 10.x & puppetl/systemd: Allow 10.x [\#119](https://github.com/voxpupuli/puppet-patroni/pull/119) ([bastelfreak](https://github.com/bastelfreak))
+- Update requirements to allow OpenVox 9 [\#118](https://github.com/voxpupuli/puppet-patroni/pull/118) ([sebastianrakel](https://github.com/sebastianrakel))
+- puppet/python: Allow 10.x [\#116](https://github.com/voxpupuli/puppet-patroni/pull/116) ([marcusdots](https://github.com/marcusdots))
+
+**Closed issues:**
+
+- update documentation to use new etcd module [\#113](https://github.com/voxpupuli/puppet-patroni/issues/113)
+
+**Merged pull requests:**
+
+- doc: fix cluster string in etcd configuration [\#115](https://github.com/voxpupuli/puppet-patroni/pull/115) ([maxadamo](https://github.com/maxadamo))
+- doc: use newer version of etcd module [\#114](https://github.com/voxpupuli/puppet-patroni/pull/114) ([maxadamo](https://github.com/maxadamo))
+
 ## [v4.2.0](https://github.com/voxpupuli/puppet-patroni/tree/v4.2.0) (2026-05-05)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v4.1.0...v4.2.0)
