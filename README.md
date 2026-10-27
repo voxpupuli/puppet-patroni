@@ -211,6 +211,23 @@ exec { 'patroni-restart-pending':
 }
 ```
 
+You may provide
+
+ * `superuser_password`
+ * `replication_password`
+ * `etcd_password`
+ * `restapi_password`
+ * `ctl_authentication_password`
+ * `ctl_keyfile_password`
+
+as `Sensitive` datatypes. Plain text strings are also supported. You may use the sensitive feature in Hiera
+
+```yaml
+lookup_options:
+  patroni::*_password
+    convert_to: "Sensitive"
+```
+
 ## Reference
 
 All of the Patroni settings I could find in the [Patroni Settings Documentation](https://github.com/zalando/patroni/blob/master/docs/SETTINGS.rst) are mapped to this module.
