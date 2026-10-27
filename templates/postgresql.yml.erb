@@ -88,10 +88,10 @@ postgresql:
   authentication:
     superuser:
       username: <%= @superuser_username %>
-      password: '<%= @superuser_password %>'
+      password: '<%= scope.call_function('unwrap', [@superuser_password]) %>'
     replication:
       username: <%= @replication_username %>
-      password: '<%= @replication_password %>'
+      password: '<%= scope.call_function('unwrap', [@replication_password]) %>'
 <% unless @callback_on_reload == nil && @callback_on_restart == nil && @callback_on_role_change == nil && @callback_on_start == nil && @callback_on_stop == nil -%>
   callbacks:
 <% if @callback_on_reload != nil -%>
@@ -170,14 +170,14 @@ restapi:
 <% if @restapi_username != nil && @restapi_password != nil -%>
   authentication:
     username: <%= @restapi_username %>
-    password: <%= @restapi_password %>
+    password: <%= scope.call_function('unwrap', [@restapi_password]) %>
 <% end -%>
 <% unless @ctl_authentication_username && @ctl_authentication_password && @ctl_insecure && @ctl_cacert && @ctl_certfile && @ctl_keyfile && @ctl_keyfile_password -%>
 ctl:
 <% if @ctl_authentication_username && @ctl_authentication_password  -%>
   authentication:
     username: <%= @ctl_authentication_username %>
-    password: <%= @ctl_authentication_password %>
+    password: <%= scope.call_function('unwrap', [@ctl_authentication_password]) %>
 <% end -%>
 <% if @ctl_insecure -%>
   insecure: <%= @ctl_insecure %>
@@ -192,7 +192,7 @@ ctl:
   keyfile: <%= @ctl_keyfile %>
 <% end -%>
 <% if @ctl_keyfile_password -%>
-  keyfile_password: <%= @ctl_keyfile_password %>
+  keyfile_password: <%= scope.call_function('unwrap', [@ctl_keyfile_password]) %>
 <% end -%>
 <% end -%>
 
@@ -226,7 +226,7 @@ watchdog:
   username: <%= @etcd_username %>
 <% end -%>
 <% if @etcd_password != nil -%>
-  password: <%= @etcd_password %>
+  password: <%= scope.call_function('unwrap', [@etcd_password]) %>
 <% end -%>
 <% if @etcd_cacert != nil -%>
   cacert: <%= @etcd_cacert %>

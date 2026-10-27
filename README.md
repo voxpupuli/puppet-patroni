@@ -111,9 +111,9 @@ node pg1 {
       'host replication rep_user 0.0.0.0/0 scram-sha-256',
     ],
     superuser_username      => 'postgres',
-    superuser_password      => 'somepassword',
+    superuser_password      => Sensitive('somepassword'),
     replication_username    => 'rep_user',
-    replication_password    => 'someotherpassword',
+    replication_password    => Sensitive('someotherpassword'),
   }
 }
 # Second PostgreSQL server
@@ -145,9 +145,9 @@ node pg2 {
       'host replication rep_user 0.0.0.0/0 scram-sha-256',
     ],
     superuser_username      => 'postgres',
-    superuser_password      => 'somepassword',
+    superuser_password      => Sensitive('somepassword'),
     replication_username    => 'rep_user',
-    replication_password    => 'someotherpassword',
+    replication_password    => Sensitive('someotherpassword'),
   }
 }
 # Simple etcd arbitrator node, meaning it serves no content of it's own, just helps keep quorum
