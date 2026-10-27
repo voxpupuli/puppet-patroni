@@ -219,6 +219,7 @@ You may provide
  * `restapi_password`
  * `ctl_authentication_password`
  * `ctl_keyfile_password`
+ * `consul_token`
 
 as `Sensitive` datatypes. Plain text strings are also supported. You may use Hiera:
 
