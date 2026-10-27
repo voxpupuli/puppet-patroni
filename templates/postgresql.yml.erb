@@ -288,7 +288,7 @@ consul:
   url: <%= @consul_url %>
 <% end -%>
 <% if @consul_token != nil -%>
-  token: <%= @consul_token %>
+  token: <%= scope.call_function('unwrap', [@consul_token]) %>
 <% end -%>
 <% if @consul_cacert != nil -%>
   cacert: <%= @consul_cacert %>

@@ -220,11 +220,13 @@ You may provide
  * `ctl_authentication_password`
  * `ctl_keyfile_password`
 
-as `Sensitive` datatypes. Plain text strings are also supported. You may use the sensitive feature in Hiera
+as `Sensitive` datatypes. Plain text strings are also supported. You may use Hiera:
 
 ```yaml
 lookup_options:
   patroni::*_password
+    convert_to: "Sensitive"
+  patroni::consul_token
     convert_to: "Sensitive"
 ```
 

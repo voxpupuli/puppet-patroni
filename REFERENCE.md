@@ -599,7 +599,7 @@ Default value: `'http'`
 
 ##### <a name="-patroni--consul_token"></a>`consul_token`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[String,Sensitive[String]]]`
 
 Refer to Consul configuration `token` setting
 

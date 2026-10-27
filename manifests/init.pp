@@ -346,7 +346,7 @@ class patroni (
   Optional[String] $consul_url = undef,
   Stdlib::Port $consul_port = 8500,
   Enum['http','https'] $consul_scheme = 'http',
-  Optional[String] $consul_token = undef,
+  Optional[Variant[String,Sensitive[String]]] $consul_token = undef,
   Boolean $consul_verify = false,
   Optional[Boolean] $consul_register_service = undef,
   Optional[String] $consul_service_check_interval = undef,
