@@ -359,7 +359,7 @@ Default value: `'postgres'`
 
 ##### <a name="-patroni--superuser_password"></a>`superuser_password`
 
-Data type: `String`
+Data type: `Variant[Sensitive[String], String]`
 
 Refer to PostgreSQL configuration settings superuser password
 
@@ -375,7 +375,7 @@ Default value: `'rep_user'`
 
 ##### <a name="-patroni--replication_password"></a>`replication_password`
 
-Data type: `String`
+Data type: `Variant[Sensitive[String], String]`
 
 Refer to PostgreSQL configuration settings replication password
 
@@ -599,7 +599,7 @@ Default value: `'http'`
 
 ##### <a name="-patroni--consul_token"></a>`consul_token`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[String,Sensitive[String]]]`
 
 Refer to Consul configuration `token` setting
 
@@ -751,7 +751,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--etcd_password"></a>`etcd_password`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[Sensitive[String], String]]`
 
 Refer to Etcd configuration `password` setting
 
@@ -911,7 +911,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--restapi_password"></a>`restapi_password`
 
-Data type: `Optional[String]`
+Data type: `Optional[Variant[Sensitive[String], String]]`
 
 Refer to REST API configuration `password` setting
 
@@ -999,7 +999,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--ctl_authentication_password"></a>`ctl_authentication_password`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Variant[Sensitive[String[1]], String[1]]]`
 
 Refer to CTL configuration `authentication.password` setting
 
@@ -1039,7 +1039,7 @@ Default value: `undef`
 
 ##### <a name="-patroni--ctl_keyfile_password"></a>`ctl_keyfile_password`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Variant[Sensitive[String[1]], String[1]]]`
 
 Refer to CTL configuration `keyfile_password` setting
 
