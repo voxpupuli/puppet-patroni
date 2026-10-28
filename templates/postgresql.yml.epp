@@ -40,9 +40,9 @@ bootstrap:
     - encoding: <%= $patroni::initdb_encoding %>
     - locale: <%= $patroni::initdb_locale %>
 <% $patroni::initdb_extra_parameters.each | $name, $val | { -%>
-    - <%= $name -%><% if ! val =~ Undef { -%>: '<%= $val %>'<% } %>
+    - <%= $name -%><% unless val =~ Undef { -%>: '<%= $val %>'<% } %>
 <% } -%>
-<% if length($patroni::bootstrap_pg_hba.empty) > 0 { -%>
+<% unless $patroni::bootstrap_pg_hba.empty { -%>
   pg_hba:
 <% $patroni::bootstrap_pg_hba.each | $entry | { -%>
     - <%= $entry %>
@@ -52,10 +52,10 @@ bootstrap:
   users:
 <% $patroni::bootstrap_users.each | $name, $settings | { -%>
     <%= $name -%>:
-<% if settings['password'] { -%>
-      password: <%= $settings['password'] %>
+<% if 'password' in $settings { -%>
+      password: <%= Sensitive($settings['password']) %>
 <% } -%>
-<% if settings['options'] { -%>
+<% if 'options' in $settings { -%>
       options:
 <% settings['options'].each | $option | { -%>
         - <%= $option %>
