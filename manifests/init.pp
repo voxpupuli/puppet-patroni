@@ -591,7 +591,7 @@ class patroni (
     owner   => $config_owner,
     group   => $config_group,
     mode    => $config_mode,
-    content => template('patroni/postgresql.yml.erb'),
+    content => epp('patroni/postgresql.yml.epp'),
     notify  => $_config_change_notify,
   }
 

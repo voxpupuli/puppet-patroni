@@ -1,0 +1,317 @@
+scope: <%= $patroni::scope %>
+namespace: <%= $patroni::namespace %>
+name: <%= $patroni::hostname %>
+
+bootstrap:
+  dcs:
+    <%- if $patroni::is_standby { -%>
+    standby_cluster:
+      host: <%= $patroni::standby_cluster_host %>
+      port: <%= $patroni::standby_cluster_port %>
+      primary_slot_name: <%= $patroni::standby_cluster_primary_slot_name %>
+    <%- } -%>
+    ttl: <%= $patroni::dcs_ttl %>
+    loop_wait: <%= $patroni::dcs_loop_wait %>
+    retry_timeout: <%= $patroni::dcs_retry_timeout %>
+    maximum_lag_on_failover: <%= $patroni::dcs_maximum_lag_on_failover %>
+    master_start_timeout: <%= $patroni::dcs_master_start_timeout %>
+    synchronous_mode: <%= $patroni::dcs_synchronous_mode %>
+    synchronous_mode_strict: <%= $patroni::dcs_synchronous_mode_strict %>
+    postgresql:
+      use_pg_rewind: <%= $patroni::dcs_postgresql_use_pg_rewind ? { true => 'true', default => 'false' } %>
+      use_slots: <%= $patroni::dcs_postgresql_use_slots ? {true => 'true', default => 'false' } %>
+<% if $patroni::dcs_postgresql_recovery_conf =~ Hash and length($patroni::dcs_postgresql_recovery_conf) > 0 { -%>
+      recovery_conf:
+<% $patroni::dcs_postgresql_recovery_conf.each | $name, $val | { -%>
+        <%= $name -%>: <%= $val %>
+<% } -%>
+<% } -%>
+<% unless $patroni::dcs_postgresql_parameters.empty? { -%>
+      parameters:
+<% $patroni::dcs_postgresql_parameters.each | $name, $val | { -%>
+        <%= $name -%>: <%= $val %>
+<% } -%>
+<% } -%>
+  method: <%= $patroni::bootstrap_method %>
+  initdb:
+<% if $patroni::initdb_data_checksums { -%>
+    - data-checksums
+<% } -%>
+    - encoding: <%= $patroni::initdb_encoding %>
+    - locale: <%= $patroni::initdb_locale %>
+<% $patroni::initdb_extra_parameters.each | $name, $val | { -%>
+    - <%= $name -%><% unless val.nil? { -%>: '<%= $val %>'<% } %>
+<% } -%>
+<% unless $patroni::bootstrap_pg_hba.empty? { -%>
+  pg_hba:
+<% $patroni::bootstrap_pg_hba.each | $entry | { -%>
+    - <%= $entry %>
+<% } -%>
+<% } -%>
+<% unless $patroni::bootstrap_users.empty? { -%>
+  users:
+<% $patroni::bootstrap_users.each | $name, $settings | { -%>
+    <%= $name -%>:
+<% if settings['password'] { -%>
+      password: <%= $settings['password'] %>
+<% } -%>
+<% if settings['options'] { -%>
+      options:
+<% settings['options'].each | $option | { -%>
+        - <%= $option %>
+<% } -%>
+<% } -%>
+<% } -%>
+<% } -%>
+<% if $patroni::bootstrap_post_bootstrap != nil { -%>
+  post_bootstrap: <%= $patroni::bootstrap_post_bootstrap %>
+<% } -%>
+<% if $patroni::bootstrap_post_init != nil { -%>
+  post_init: <%= $patroni::bootstrap_post_init %>
+<% } -%>
+
+postgresql:
+  listen: <%= $patroni::pgsql_listen %>
+  connect_address: <%= $patroni::pgsql_connect_address %>
+  data_dir: <%= $patroni::_pgsql_data_dir %>
+<% if $patroni::_pgsql_bin_dir { %>
+  bin_dir: <%= $patroni::_pgsql_bin_dir %>
+<% } %>
+<% if $patroni::pgsql_config_dir != nil { -%>
+  config_dir: <%= $patroni::pgsql_config_dir %>
+<% } -%>
+  use_unix_socket: <%= $patroni::pgsql_use_unix_socket ? 'true' : 'false' %>
+  pgpass: <%= $patroni::pgsql_pgpass_path %>
+  pg_ctl_timeout: <%= $patroni::pgsql_pg_ctl_timeout %>
+  use_pg_rewind: <%= $patroni::pgsql_use_pg_rewind ? 'true' : 'false' %>
+  remove_data_directory_on_rewind_failure: <%= $patroni::pgsql_remove_data_directory_on_rewind_failure ? 'true' : 'false' %>
+  authentication:
+    superuser:
+      username: <%= $patroni::superuser_username %>
+      password: '<%= $patroni::superuser_password %>'
+    replication:
+      username: <%= $patroni::replication_username %>
+      password: '<%= [$patroni::replication_password] %>'
+<% unless $patroni::callback_on_reload == nil && $patroni::callback_on_restart == nil && $patroni::callback_on_role_change == nil && $patroni::callback_on_start == nil && $patroni::callback_on_stop == nil { -%>
+  callbacks:
+<% if $patroni::callback_on_reload != nil { -%>
+    on_reload: <%= $patroni::callback_on_reload %>
+<% } -%>
+<% if $patroni::callback_on_restart != nil { -%>
+    on_restart: <%= $patroni::callback_on_restart %>
+<% } -%>
+<% if $patroni::callback_on_role_change != nil { -%>
+    on_role_change: <%= $patroni::callback_on_role_change %>
+<% } -%>
+<% if $patroni::callback_on_start != nil { -%>
+    on_start: <%= $patroni::callback_on_start %>
+<% } -%>
+<% if $patroni::callback_on_stop != nil { -%>
+    on_stop: <%= $patroni::callback_on_stop %>
+<% } -%>
+<% } -%>
+<% unless $patroni::pgsql_create_replica_methods.empty? { -%>
+  create_replica_methods:
+<% $patroni::pgsql_create_replica_methods.each | $entry | { -%>
+    - <%= $entry %>
+<% } -%>
+<% } -%>
+<% unless $patroni::pgsql_pg_hba.empty? { -%>
+  pg_hba:
+<% $patroni::pgsql_pg_hba.each | $entry | { -%>
+    - <%= $entry %>
+<% } -%>
+<% } -%>
+<% unless $patroni::pgsql_recovery_conf.empty? { -%>
+  recovery_conf:
+<% $patroni::pgsql_recovery_conf.each | $name, $val | { -%>
+    <%= $name -%>: <%= $val %>
+<% } -%>
+<% } -%>
+<% if $patroni::pgsql_custom_conf != nil { -%>
+  custom_conf: <%= $patroni::pgsql_custom_conf %>
+<% } -%>
+<% unless $patroni::pgsql_parameters.empty? { -%>
+  parameters:
+<% $patroni::pgsql_parameters.each | $name, $val | { -%>
+    <%= $name -%>: <%= $val %>
+<% } -%>
+<% } -%>
+<% unless $patroni::pgsql_replica_method.empty? { -%>
+  replica_method:
+<% $patroni::pgsql_replica_method.each | $replica_method | { -%>
+<% replica_method.each | $name, $settings | { -%>
+    <%= $name -%>:
+<% settings.each | $setname, $setval | { -%>
+      <%= $setname -%>: <%= $setval %>
+<% } -%>
+<% } -%>
+<% } -%>
+<% } -%>
+
+restapi:
+  listen: <%= $patroni::restapi_listen %>
+  connect_address: <%= $patroni::restapi_connect_address %>
+<% if $patroni::restapi_certfile != nil { -%>
+  certfile: <%= $patroni::restapi_certfile %>
+<% } -%>
+<% if $patroni::restapi_ciphers != nil { -%>
+  ciphers: <%= $patroni::restapi_ciphers %>
+<% } -%>
+<% if $patroni::restapi_keyfile != nil { -%>
+  keyfile: <%= $patroni::restapi_keyfile %>
+<% } -%>
+<% if $patroni::restapi_cafile != nil { -%>
+  cafile: <%= $patroni::restapi_cafile %>
+<% } -%>
+<% if $patroni::restapi_verify_client != nil { -%>
+  verify_client: <%= $patroni::restapi_verify_client %>
+<% } -%>
+<% if $patroni::restapi_username != nil && $patroni::restapi_password != nil { -%>
+  authentication:
+    username: <%= $patroni::restapi_username %>
+    password: <%= $patroni::restapi_password %>
+<% } -%>
+<% unless $patroni::ctl_authentication_username && $patroni::ctl_authentication_password && $patroni::ctl_insecure && $patroni::ctl_cacert && $patroni::ctl_certfile && $patroni::ctl_keyfile && $patroni::ctl_keyfile_password { -%>
+ctl:
+<% if $patroni::ctl_authentication_username && $patroni::ctl_authentication_password { -%>
+  authentication:
+    username: <%= $patroni::ctl_authentication_username %>
+    password: <%= $patroni::ctl_authentication_password %>
+<% } -%>
+<% if $patroni::ctl_insecure { -%>
+  insecure: <%= $patroni::ctl_insecure %>
+<% } -%>
+<% if $patroni::ctl_cacert { -%>
+  cacert: <%= $patroni::ctl_cacert %>
+<% } -%>
+<% if $patroni::ctl_certfile { -%>
+  certfile: <%= $patroni::ctl_certfile %>
+<% } -%>
+<% if $patroni::ctl_keyfile { -%>
+  keyfile: <%= $patroni::ctl_keyfile %>
+<% } -%>
+<% if $patroni::ctl_keyfile_password { -%>
+  keyfile_password: $patroni::ctl_keyfile_password %>
+<% } -%>
+<% } -%>
+
+watchdog:
+  mode: <%= $patroni::watchdog_mode %>
+  device: <%= $patroni::watchdog_device %>
+  safety_margin: <%= $patroni::watchdog_safety_margin %>
+<% if $patroni::use_etcd { -%>
+
+<%= $patroni::etcd_version %>:
+  host: <%= $patroni::etcd_host %>
+<% unless $patroni::etcd_hosts.empty? { -%>
+  hosts:
+<% $patroni::etcd_hosts.each | $entry | { -%>
+    - <%= $entry %>
+<% } -%>
+<% } -%>
+<% if $patroni::etcd_url != nil { -%>
+  url: <%= $patroni::etcd_url %>
+<% } -%>
+<% if $patroni::etcd_proxy != nil { -%>
+  proxy: <%= $patroni::etcd_proxy %>
+<% } -%>
+<% if $patroni::etcd_srv != nil { -%>
+  srv: <%= $patroni::etcd_srv %>
+<% } -%>
+<% if $patroni::etcd_protocol != nil { -%>
+  protocol: <%= $patroni::etcd_protocol %>
+<% } -%>
+<% if $patroni::etcd_username != nil { -%>
+  username: <%= $patroni::etcd_username %>
+<% } -%>
+<% if $patroni::etcd_password != nil { -%>
+  password: <%= $patroni::etcd_password %>
+<% } -%>
+<% if $patroni::etcd_cacert != nil { -%>
+  cacert: <%= $patroni::etcd_cacert %>
+<% } -%>
+<% if $patroni::etcd_cert != nil { -%>
+  cert: <%= $patroni::etcd_cert %>
+<% } -%>
+<% if $patroni::etcd_key != nil { -%>
+  key: <%= $patroni::etcd_key %>
+<% } -%>
+<% } -%>
+<% if $patroni::use_zookeeper { -%>
+
+zookeeper:
+  hosts: <%= $patroni::zookeeper_hosts.join(',') %>
+<% } -%>
+<% if $patroni::use_exhibitor { -%>
+
+exhibitor:
+  hosts:
+<% $patroni::exhibitor_hosts.each | $entry | { -%>
+    - <%= $entry %>
+<% } -%>
+  poll_interval: <%= $patroni::exhibitor_poll_interval %>
+  port: <%= $patroni::exhibitor_port %>
+<% } -%>
+<% if $patroni::use_kubernetes { -%>
+
+kubernetes:
+  namespace: <%= $patroni::kubernetes_namespace %>
+  use_endpoints: <%= $patroni::kubernetes_use_endpoints ? 'true' : 'false' %>
+<% unless $patroni::kubernetes_labels.empty? { -%>
+  labels:
+<% $patroni::kubernetes_labels.each | $name, $val | { -%>
+    <%= $name -%>: <%= $val %>
+<% } -%>
+<% } -%>
+<% if $patroni::kubernetes_scope_label != nil { -%>
+  scope_label: <%= $patroni::kubernetes_scope_label %>
+<% } -%>
+<% if $patroni::kubernetes_role_label != nil { -%>
+  role_label: <%= $patroni::kubernetes_role_label %>
+<% } -%>
+<% if $patroni::kubernetes_pod_ip != nil { -%>
+  pod_ip: <%= $patroni::kubernetes_pod_ip %>
+<% } -%>
+<% if $patroni::kubernetes_ports != nil { -%>
+  ports: <%= $patroni::kubernetes_ports %>
+<% } -%>
+<% } -%>
+<% if $patroni::use_consul { -%>
+
+consul:
+  host: <%= $patroni::consul_host %>
+  port: <%= $patroni::consul_port %>
+  scheme: <%= $patroni::consul_scheme %>
+  verify: <%= $patroni::consul_verify ? 'true' : 'false' %>
+<% if $patroni::consul_url != nil { -%>
+  url: <%= $patroni::consul_url %>
+<% } -%>
+<% if $patroni::consul_token != nil { -%>
+  token: <%= $patroni::consul_tokengit  %>
+<% } -%>
+<% if $patroni::consul_cacert != nil { -%>
+  cacert: <%= $patroni::consul_cacert %>
+<% } -%>
+<% if $patroni::consul_cert != nil { -%>
+  cert: <%= $patroni::consul_cert %>
+<% } -%>
+<% if $patroni::consul_key != nil { -%>
+  key: <%= $patroni::consul_key %>
+<% } -%>
+<% if $patroni::consul_dc != nil { -%>
+  dc: <%= $patroni::consul_dc %>
+<% } -%>
+<% if $patroni::consul_consistency != nil { -%>
+  consistency: <%= $patroni::consul_consistency %>
+<% } -%>
+<% if $patroni::consul_checks != nil { -%>
+  checks: <%= $patroni::consul_checks %>
+<% } -%>
+<% if $patroni::consul_register_service != nil { -%>
+  register_service: <%= $patroni::consul_register_service %>
+<% } -%>
+<% if $patroni::consul_service_check_interval != nil { -%>
+  service_check_interval: <%= $patroni::consul_service_check_interval %>
+<% } -%>
+<% } -%>
