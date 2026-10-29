@@ -48,7 +48,7 @@ bootstrap:
     - <%= $entry %>
 <% } -%>
 <% } -%>
-<% if length($patroni::bootstrap_users.empty) > 0 { -%>
+<% unless $patroni::bootstrap_users.empty { -%>
   users:
 <% $patroni::bootstrap_users.each | $name, $settings | { -%>
     <%= $name -%>:
