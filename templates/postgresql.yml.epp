@@ -63,10 +63,10 @@ bootstrap:
 <% } -%>
 <% } -%>
 <% } -%>
-<% unless $patroni::bootstrap_post_bootstrap =~ Undef { -%>
+<% if $patroni::bootstrap_post_bootstrap { -%>
   post_bootstrap: <%= $patroni::bootstrap_post_bootstrap %>
 <% } -%>
-<% unless $patroni::bootstrap_post_init =~ Undef { -%>
+<% if $patroni::bootstrap_post_init { -%>
   post_init: <%= $patroni::bootstrap_post_init %>
 <% } -%>
 
@@ -77,7 +77,7 @@ postgresql:
 <% if $patroni::_pgsql_bin_dir { %>
   bin_dir: <%= $patroni::_pgsql_bin_dir %>
 <% } %>
-<% unless $patroni::pgsql_config_dir =~ Undef { -%>
+<% if $patroni::pgsql_config_dir { -%>
   config_dir: <%= $patroni::pgsql_config_dir %>
 <% } -%>
   use_unix_socket: <%= $patroni::pgsql_use_unix_socket ? { true => 'true', default => 'false' } %>
@@ -94,19 +94,19 @@ postgresql:
       password: '<%= $patroni::replication_password %>'
 <% unless ($patroni::callback_on_reload =~ Undef and $patroni::callback_on_restart =~ Undef and $patroni::callback_on_role_change =~ Undef and $patroni::callback_on_start =~ Undef and $patroni::callback_on_stop =~ Undef ) { -%>
   callbacks:
-<% unless $patroni::callback_on_reload =~ Undef { -%>
+<% if $patroni::callback_on_reload { -%>
     on_reload: <%= $patroni::callback_on_reload %>
 <% } -%>
-<% unless $patroni::callback_on_restart =~ Undef { -%>
+<% if $patroni::callback_on_restart { -%>
     on_restart: <%= $patroni::callback_on_restart %>
 <% } -%>
-<% unless $patroni::callback_on_role_change =~ Undef { -%>
+<% if $patroni::callback_on_role_change { -%>
     on_role_change: <%= $patroni::callback_on_role_change %>
 <% } -%>
-<% unless $patroni::callback_on_start =~ Undef { -%>
+<% if $patroni::callback_on_start { -%>
     on_start: <%= $patroni::callback_on_start %>
 <% } -%>
-<% unless $patroni::callback_on_stop =~ Undef { -%>
+<% if $patroni::callback_on_stop { -%>
     on_stop: <%= $patroni::callback_on_stop %>
 <% } -%>
 <% } -%>
@@ -128,7 +128,7 @@ postgresql:
     <%= $name -%>: <%= $val %>
 <% } -%>
 <% } -%>
-<% unless $patroni::pgsql_custom_conf =~ Undef { -%>
+<% if $patroni::pgsql_custom_conf { -%>
   custom_conf: <%= $patroni::pgsql_custom_conf %>
 <% } -%>
 <% unless $patroni::pgsql_parameters.empty { -%>
@@ -152,19 +152,19 @@ postgresql:
 restapi:
   listen: <%= $patroni::restapi_listen %>
   connect_address: <%= $patroni::restapi_connect_address %>
-<% unless $patroni::restapi_certfile =~ Undef { -%>
+<% if $patroni::restapi_certfile { -%>
   certfile: <%= $patroni::restapi_certfile %>
 <% } -%>
-<% unless $patroni::restapi_ciphers =~ Undef { -%>
+<% if $patroni::restapi_ciphers { -%>
   ciphers: <%= $patroni::restapi_ciphers %>
 <% } -%>
-<% unless $patroni::restapi_keyfile =~ Undef { -%>
+<% if $patroni::restapi_keyfile { -%>
   keyfile: <%= $patroni::restapi_keyfile %>
 <% } -%>
-<% unless $patroni::restapi_cafile =~ Undef { -%>
+<% if $patroni::restapi_cafile { -%>
   cafile: <%= $patroni::restapi_cafile %>
 <% } -%>
-<% unless $patroni::restapi_verify_client =~ Undef { -%>
+<% if $patroni::restapi_verify_client { -%>
   verify_client: <%= $patroni::restapi_verify_client %>
 <% } -%>
 <% unless ( $patroni::restapi_username =~ Undef or $patroni::restapi_password =~ Undef ) { -%>
@@ -179,7 +179,7 @@ ctl:
     username: <%= $patroni::ctl_authentication_username %>
     password: <%= $patroni::ctl_authentication_password %>
 <% } -%>
-<% if $patroni::ctl_insecure { -%>
+<% unless $patroni::ctl_insecure =~ Undef { -%>
   insecure: <%= $patroni::ctl_insecure %>
 <% } -%>
 <% if $patroni::ctl_cacert { -%>
@@ -210,31 +210,31 @@ watchdog:
     - <%= $entry %>
 <% } -%>
 <% } -%>
-<% unless $patroni::etcd_url =~ Undef { -%>
+<% if $patroni::etcd_url { -%>
   url: <%= $patroni::etcd_url %>
 <% } -%>
-<% unless $patroni::etcd_proxy =~ Undef { -%>
+<% if $patroni::etcd_proxy  { -%>
   proxy: <%= $patroni::etcd_proxy %>
 <% } -%>
-<% unless $patroni::etcd_srv =~ Undef { -%>
+<% if $patroni::etcd_srv { -%>
   srv: <%= $patroni::etcd_srv %>
 <% } -%>
-<% unless $patroni::etcd_protocol =~ Undef { -%>
+<% if $patroni::etcd_protocol { -%>
   protocol: <%= $patroni::etcd_protocol %>
 <% } -%>
-<% unless $patroni::etcd_username =~ Undef { -%>
+<% if $patroni::etcd_username { -%>
   username: <%= $patroni::etcd_username %>
 <% } -%>
-<% unless $patroni::etcd_password =~ Undef { -%>
+<% if $patroni::etcd_password { -%>
   password: <%= $patroni::etcd_password %>
 <% } -%>
-<% unless $patroni::etcd_cacert =~ Undef { -%>
+<% if $patroni::etcd_cacert { -%>
   cacert: <%= $patroni::etcd_cacert %>
 <% } -%>
-<% unless $patroni::etcd_cert =~ Undef { -%>
+<% if $patroni::etcd_cert { -%>
   cert: <%= $patroni::etcd_cert %>
 <% } -%>
-<% unless $patroni::etcd_key =~ Undef { -%>
+<% if $patroni::etcd_key { -%>
   key: <%= $patroni::etcd_key %>
 <% } -%>
 <% } -%>
@@ -264,16 +264,16 @@ kubernetes:
     <%= $name -%>: <%= $val %>
 <% } -%>
 <% } -%>
-<% unless $patroni::kubernetes_scope_label =~ Undef { -%>
+<% if $patroni::kubernetes_scope_label { -%>
   scope_label: <%= $patroni::kubernetes_scope_label %>
 <% } -%>
-<% unless $patroni::kubernetes_role_label =~ Undef { -%>
+<% if $patroni::kubernetes_role_label { -%>
   role_label: <%= $patroni::kubernetes_role_label %>
 <% } -%>
-<% unless $patroni::kubernetes_pod_ip =~ Undef { -%>
+<% if $patroni::kubernetes_pod_ip { -%>
   pod_ip: <%= $patroni::kubernetes_pod_ip %>
 <% } -%>
-<% unless $patroni::kubernetes_ports =~ Undef { -%>
+<% if $patroni::kubernetes_ports { -%>
   ports: <%= $patroni::kubernetes_ports %>
 <% } -%>
 <% } -%>
@@ -284,34 +284,34 @@ consul:
   port: <%= $patroni::consul_port %>
   scheme: <%= $patroni::consul_scheme %>
   verify: <%= $patroni::consul_verify %>
-<% unless $patroni::consul_url =~ Undef { -%>
+<% if $patroni::consul_url { -%>
   url: <%= $patroni::consul_url %>
 <% } -%>
-<% unless $patroni::consul_token =~ Undef { -%>
+<% if $patroni::consul_token { -%>
   token: <%= $patroni::consul_tokengit  %>
 <% } -%>
-<% unless $patroni::consul_cacert =~ Undef { -%>
+<% if $patroni::consul_cacert { -%>
   cacert: <%= $patroni::consul_cacert %>
 <% } -%>
-<% unless $patroni::consul_cert =~ Undef { -%>
+<% if $patroni::consul_cert { -%>
   cert: <%= $patroni::consul_cert %>
 <% } -%>
-<% unless $patroni::consul_key =~ Undef { -%>
+<% if $patroni::consul_key { -%>
   key: <%= $patroni::consul_key %>
 <% } -%>
-<% unless $patroni::consul_dc =~ Undef { -%>
+<% if $patroni::consul_dc { -%>
   dc: <%= $patroni::consul_dc %>
 <% } -%>
-<% unless $patroni::consul_consistency =~ Undef { -%>
+<% if $patroni::consul_consistency { -%>
   consistency: <%= $patroni::consul_consistency %>
 <% } -%>
-<% unless $patroni::consul_checks =~ Undef { -%>
+<% if $patroni::consul_checks { -%>
   checks: <%= $patroni::consul_checks %>
 <% } -%>
 <% unless $patroni::consul_register_service =~ Undef { -%>
   register_service: <%= $patroni::consul_register_service %>
 <% } -%>
-<% unless $patroni::consul_service_check_interval =~ Undef { -%>
+<% if $patroni::consul_service_check_interval { -%>
   service_check_interval: <%= $patroni::consul_service_check_interval %>
 <% } -%>
 <% } -%>
