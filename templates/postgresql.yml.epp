@@ -91,8 +91,8 @@ postgresql:
       password: '<%= $patroni::superuser_password %>'
     replication:
       username: <%= $patroni::replication_username %>
-      password: '<%= [$patroni::replication_password] %>'
-<% unless ($patroni::callback_on_reload =~ Undef && $patroni::callback_on_restart =~ Undef && $patroni::callback_on_role_change =~ Undef && $patroni::callback_on_start =~ Undef && $patroni::callback_on_stop =~ Undef ) { -%>
+      password: '<%= $patroni::replication_password %>'
+<% unless ($patroni::callback_on_reload =~ Undef and $patroni::callback_on_restart =~ Undef and $patroni::callback_on_role_change =~ Undef and $patroni::callback_on_start =~ Undef and $patroni::callback_on_stop =~ Undef ) { -%>
   callbacks:
 <% unless $patroni::callback_on_reload =~ Undef { -%>
     on_reload: <%= $patroni::callback_on_reload %>
@@ -167,14 +167,14 @@ restapi:
 <% unless $patroni::restapi_verify_client =~ Undef { -%>
   verify_client: <%= $patroni::restapi_verify_client %>
 <% } -%>
-<% unless ( $patroni::restapi_username =~ Undef || $patroni::restapi_password =~ Undef ) { -%>
+<% unless ( $patroni::restapi_username =~ Undef or $patroni::restapi_password =~ Undef ) { -%>
   authentication:
     username: <%= $patroni::restapi_username %>
     password: <%= $patroni::restapi_password %>
 <% } -%>
-<% unless $patroni::ctl_authentication_username && $patroni::ctl_authentication_password && $patroni::ctl_insecure && $patroni::ctl_cacert && $patroni::ctl_certfile && $patroni::ctl_keyfile && $patroni::ctl_keyfile_password { -%>
+<% unless $patroni::ctl_authentication_username and $patroni::ctl_authentication_password and $patroni::ctl_insecure and $patroni::ctl_cacert and $patroni::ctl_certfile and $patroni::ctl_keyfile and $patroni::ctl_keyfile_password { -%>
 ctl:
-<% if $patroni::ctl_authentication_username && $patroni::ctl_authentication_password { -%>
+<% if $patroni::ctl_authentication_username and $patroni::ctl_authentication_password { -%>
   authentication:
     username: <%= $patroni::ctl_authentication_username %>
     password: <%= $patroni::ctl_authentication_password %>
@@ -257,8 +257,8 @@ exhibitor:
 
 kubernetes:
   namespace: <%= $patroni::kubernetes_namespace %>
-  use_endpoints: <%= $patroni::kubernetes_use_endpoints ? 'true' : 'false' %>
-<% unless $patroni::kubernetes_labels.empty? { -%>
+  use_endpoints: <%= $patroni::kubernetes_use_endpoints %>
+<% unless $patroni::kubernetes_labels.empty { -%>
   labels:
 <% $patroni::kubernetes_labels.each | $name, $val | { -%>
     <%= $name -%>: <%= $val %>
