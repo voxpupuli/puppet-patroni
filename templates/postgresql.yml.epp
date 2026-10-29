@@ -63,10 +63,10 @@ bootstrap:
 <% } -%>
 <% } -%>
 <% } -%>
-<% if $patroni::bootstrap_post_bootstrap != nil { -%>
+<% unless $patroni::bootstrap_post_bootstrap =~ Undef { -%>
   post_bootstrap: <%= $patroni::bootstrap_post_bootstrap %>
 <% } -%>
-<% if $patroni::bootstrap_post_init != nil { -%>
+<% unless $patroni::bootstrap_post_init =~ Undef { -%>
   post_init: <%= $patroni::bootstrap_post_init %>
 <% } -%>
 
@@ -77,7 +77,7 @@ postgresql:
 <% if $patroni::_pgsql_bin_dir { %>
   bin_dir: <%= $patroni::_pgsql_bin_dir %>
 <% } %>
-<% if $patroni::pgsql_config_dir != nil { -%>
+<% unless $patroni::pgsql_config_dir =~ Undef { -%>
   config_dir: <%= $patroni::pgsql_config_dir %>
 <% } -%>
   use_unix_socket: <%= $patroni::pgsql_use_unix_socket ? { true => 'true', default => 'false' } %>
