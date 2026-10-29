@@ -111,9 +111,9 @@ node pg1 {
       'host replication rep_user 0.0.0.0/0 scram-sha-256',
     ],
     superuser_username      => 'postgres',
-    superuser_password      => 'somepassword',
+    superuser_password      => Sensitive('somepassword'),
     replication_username    => 'rep_user',
-    replication_password    => 'someotherpassword',
+    replication_password    => Sensitive('someotherpassword'),
   }
 }
 # Second PostgreSQL server
@@ -145,9 +145,9 @@ node pg2 {
       'host replication rep_user 0.0.0.0/0 scram-sha-256',
     ],
     superuser_username      => 'postgres',
-    superuser_password      => 'somepassword',
+    superuser_password      => Sensitive('somepassword'),
     replication_username    => 'rep_user',
-    replication_password    => 'someotherpassword',
+    replication_password    => Sensitive('someotherpassword'),
   }
 }
 # Simple etcd arbitrator node, meaning it serves no content of it's own, just helps keep quorum
@@ -209,6 +209,26 @@ exec { 'patroni-restart-pending':
   refreshonly => true,
   require     => Service['patroni'],
 }
+```
+
+You may provide
+
+ * `superuser_password`
+ * `replication_password`
+ * `etcd_password`
+ * `restapi_password`
+ * `ctl_authentication_password`
+ * `ctl_keyfile_password`
+ * `consul_token`
+
+as `Sensitive` datatypes. Plain text strings are also supported. You may use Hiera:
+
+```yaml
+lookup_options:
+  patroni::*_password
+    convert_to: "Sensitive"
+  patroni::consul_token
+    convert_to: "Sensitive"
 ```
 
 ## Reference
