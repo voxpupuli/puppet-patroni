@@ -29,7 +29,7 @@ bootstrap:
 <% unless @dcs_postgresql_parameters.empty? -%>
       parameters:
 <% @dcs_postgresql_parameters.each do |name,val| -%>
-        <%= name -%>: <%= val %>
+        <%= name -%>: <%= val.to_s.start_with?('%') ? val.to_s.dump : val %>
 <% end -%>
 <% end -%>
   method: <%= @bootstrap_method %>
