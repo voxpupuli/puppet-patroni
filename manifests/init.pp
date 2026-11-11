@@ -314,9 +314,9 @@ class patroni (
 
   # PostgreSQL Settings
   String $superuser_username = 'postgres',
-  String $superuser_password = 'changeme',
+  Variant[Sensitive[String], String] $superuser_password = 'changeme',
   String $replication_username = 'rep_user',
-  String $replication_password = 'changeme',
+  Variant[Sensitive[String], String] $replication_password = 'changeme',
   Optional[String] $callback_on_reload = undef,
   Optional[String] $callback_on_restart = undef,
   Optional[String] $callback_on_role_change = undef,
@@ -346,7 +346,7 @@ class patroni (
   Optional[String] $consul_url = undef,
   Stdlib::Port $consul_port = 8500,
   Enum['http','https'] $consul_scheme = 'http',
-  Optional[String] $consul_token = undef,
+  Optional[Variant[Sensitive[String], String]] $consul_token = undef,
   Boolean $consul_verify = false,
   Optional[Boolean] $consul_register_service = undef,
   Optional[String] $consul_service_check_interval = undef,
@@ -367,7 +367,7 @@ class patroni (
   Optional[String] $etcd_srv = undef,
   Enum['http','https'] $etcd_protocol = 'http',
   Optional[String] $etcd_username = undef,
-  Optional[String] $etcd_password = undef,
+  Optional[Variant[Sensitive[String], String]] $etcd_password = undef,
   Optional[String] $etcd_cacert = undef,
   Optional[String] $etcd_cert = undef,
   Optional[String] $etcd_key = undef,
@@ -393,7 +393,7 @@ class patroni (
   String $restapi_connect_address = "${facts['networking']['fqdn']}:8008",
   String $restapi_listen = '0.0.0.0:8008',
   Optional[String] $restapi_username = undef,
-  Optional[String] $restapi_password = undef,
+  Optional[Variant[Sensitive[String], String]] $restapi_password = undef,
   Optional[String] $restapi_certfile = undef,
   Optional[String] $restapi_keyfile = undef,
   Optional[String] $restapi_cafile = undef,
@@ -410,12 +410,12 @@ class patroni (
 
   # CTL Settings
   Optional[String[1]] $ctl_authentication_username = undef,
-  Optional[String[1]] $ctl_authentication_password = undef,
+  Optional[Variant[Sensitive[String[1]], String[1]]] $ctl_authentication_password = undef,
   Optional[Boolean]   $ctl_insecure = undef,
   Optional[String[1]] $ctl_cacert = undef,
   Optional[String[1]] $ctl_certfile = undef,
   Optional[String[1]] $ctl_keyfile = undef,
-  Optional[String[1]] $ctl_keyfile_password = undef,
+  Optional[Variant[Sensitive[String[1]], String[1]]] $ctl_keyfile_password = undef,
 
   # Module Specific Settings
   Boolean $manage_postgresql = true,
@@ -591,7 +591,7 @@ class patroni (
     owner   => $config_owner,
     group   => $config_group,
     mode    => $config_mode,
-    content => template('patroni/postgresql.yml.erb'),
+    content => epp('patroni/postgresql.yml.epp'),
     notify  => $_config_change_notify,
   }
 
