@@ -22,6 +22,7 @@ def platform_data(p, d)
       data_dir: '/var/lib/pgsql/data',
       bin_dir: '/usr/bin',
       python_venv_version: '3.12',
+      install_dependencies: %w[gcc postgresql-server-devel],
     },
     'Debian-11' => {
       data_dir: '/var/lib/postgresql/13/main',
