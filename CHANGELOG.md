@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.5.0](https://github.com/voxpupuli/puppet-patroni/tree/v4.5.0) (2026-11-12)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v4.4.0...v4.5.0)
+
+**Implemented enhancements:**
+
+- Add EL10 support [\#129](https://github.com/voxpupuli/puppet-patroni/pull/129) ([bigon](https://github.com/bigon))
+- permit sensitive passwords [\#125](https://github.com/voxpupuli/puppet-patroni/pull/125) ([marcusdots](https://github.com/marcusdots))
+- Add EL10 support [\#100](https://github.com/voxpupuli/puppet-patroni/pull/100) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v4.4.0](https://github.com/voxpupuli/puppet-patroni/tree/v4.4.0) (2026-10-28)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v4.3.0...v4.4.0)
