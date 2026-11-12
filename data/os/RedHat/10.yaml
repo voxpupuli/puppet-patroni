@@ -1,0 +1,10 @@
+---
+# On EL10, postgresql-devel is provided by postgresql-private-devel, whose
+# /usr/bin/pg_config is a symlink to pg_server_config from
+# postgresql-server-devel: psycopg2 can't be built without it.
+patroni::install_dependencies:
+  - gcc
+  - postgresql-server-devel
+patroni::manage_postgresql_repo: false
+patroni::python_class_version: '3'
+patroni::python_venv_version: '3.12'
