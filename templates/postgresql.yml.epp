@@ -86,12 +86,16 @@ postgresql:
   use_pg_rewind: <%= $patroni::pgsql_use_pg_rewind %>
   remove_data_directory_on_rewind_failure: <%= $patroni::pgsql_remove_data_directory_on_rewind_failure %>
   authentication:
-    superuser:
-      username: <%= $patroni::superuser_username %>
-      password: '<%= $patroni::superuser_password %>'
-    replication:
-      username: <%= $patroni::replication_username %>
-      password: '<%= $patroni::replication_password %>'
+<% $patroni::_pgsql_authentication.each | $user, $values | { -%>
+    <%= $user %>:
+    <%- $values.each | $k, $v | { -%>
+      <%- if $k == 'password' { -%>
+      <%= $k %>: '<%= $v %>'
+      <%- } else { -%>
+      <%= $k %>: <%= $v %>
+      <%- } -%>
+    <%- } -%>
+<% } -%>
 <% unless ($patroni::callback_on_reload =~ Undef and $patroni::callback_on_restart =~ Undef and $patroni::callback_on_role_change =~ Undef and $patroni::callback_on_start =~ Undef and $patroni::callback_on_stop =~ Undef ) { -%>
   callbacks:
 <% if $patroni::callback_on_reload { -%>

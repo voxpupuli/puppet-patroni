@@ -443,6 +443,75 @@ describe 'patroni' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_file('patroni_config').with_ensure('absent') }
       end
+      context 'superuser certificate authentication' do
+        let(:params) do
+          {
+            'scope'                => 'testscope',
+            'pgsql_authentication' => {
+              'superuser' => {
+                'username'    => 'superuser',
+                'password'    => 'secretinitpass',
+                'sslmode'     => 'require',
+                'sslkey'      => '/var/lib/pgsql/ssl_key.pem',
+                'sslpassword' => 'secretpass',
+                'sslcert'     => '/var/lib/pgsql/ssl_cert.pem',
+                'sslrootcert' => '/var/lib/pgsql/root_cert.pem',
+              },
+            },
+          }
+        end
+
+        it 'has valid config' do
+          content = catalogue.resource('file', 'patroni_config').send(:parameters)[:content]
+          config = YAML.safe_load(content)
+          expected = {
+            'sslcert'     => '/var/lib/pgsql/ssl_cert.pem',
+            'sslkey'      => '/var/lib/pgsql/ssl_key.pem',
+            'sslmode'     => 'require',
+            'sslpassword' => 'secretpass',
+            'sslrootcert' => '/var/lib/pgsql/root_cert.pem',
+            'username'    => 'superuser',
+            'password'    => 'secretinitpass',
+          }
+
+          expect(config['postgresql']['authentication']['superuser']).to include(expected)
+        end
+      end
+
+      context 'replication user certificate authentication' do
+        let(:params) do
+          {
+            'scope'                => 'testscope',
+            'pgsql_authentication' => {
+              'replication' => {
+                'username'    => 'replication',
+                'password'    => 'secretinitpass',
+                'sslmode'     => 'require',
+                'sslkey'      => '/var/lib/pgsql/ssl_key.pem',
+                'sslpassword' => 'secretpass',
+                'sslcert'     => '/var/lib/pgsql/ssl_cert.pem',
+                'sslrootcert' => '/var/lib/pgsql/root_cert.pem',
+              },
+            },
+          }
+        end
+
+        it 'has valid config' do
+          content = catalogue.resource('file', 'patroni_config').send(:parameters)[:content]
+          config = YAML.safe_load(content)
+          expected = {
+            'username'    => 'replication',
+            'password'    => 'secretinitpass',
+            'sslmode'     => 'require',
+            'sslkey'      => '/var/lib/pgsql/ssl_key.pem',
+            'sslpassword' => 'secretpass',
+            'sslcert'     => '/var/lib/pgsql/ssl_cert.pem',
+            'sslrootcert' => '/var/lib/pgsql/root_cert.pem',
+          }
+
+          expect(config['postgresql']['authentication']['replication']).to include(expected)
+        end
+      end
     end
   end
 end

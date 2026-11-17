@@ -89,8 +89,8 @@ class { 'patroni':
     'host all all 0.0.0.0/0 scram-sha-256',
     'host replication repl 0.0.0.0/0 scram-sha-256',
   ],
-  superuser_username      => 'postgres',
-  superuser_password      => Sensitive('postgrespassword'),
-  replication_username    => 'repl',
-  replication_password    => Sensitive('replpassword'),
+  pgsql_authentication    => {
+    'superuser'   => { 'username' => 'postgres', 'password' => Sensitive('postgrespassword') },
+    'replication' => { 'username' => 'repl', 'password' => Sensitive('replpassword') },
+  },
 }

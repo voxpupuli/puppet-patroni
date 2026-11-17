@@ -46,14 +46,23 @@
 #   Refer to Bootstrap configuration settings `post_bootstrap` setting
 # @param bootstrap_post_init
 #   Refer to Bootstrap configuration settings `post_init` setting
+# @param pgsql_authentication
+#   postgresql authentication settings
+#   This replaces the parameters superuser_username, superuser_password
+#   replication_username and replication_password which are used for
+#   setting the default value until final deprecation.
 # @param superuser_username
 #   Refer to PostgreSQL configuration settings superuser username
+#   Deprecated, use patroni::pgsql['superuser']['username'] instead.
 # @param superuser_password
 #   Refer to PostgreSQL configuration settings superuser password
+#   Deprecated, use patroni::pgsql['superuser']['password'] instead
 # @param replication_username
 #   Refer to PostgreSQL configuration settings replication username
+#   Deprecated, use patroni::pgsql['replication']['username'] instead
 # @param replication_password
 #   Refer to PostgreSQL configuration settings replication password
+#   Deprecated, use patroni::pgsql['replication']['password']
 # @param callback_on_reload
 #   Refer to PostgreSQL configuration settings callbacks `on_reload`
 # @param callback_on_restart
@@ -313,6 +322,7 @@ class patroni (
   String[1] $standby_cluster_primary_slot_name = 'patroni',
 
   # PostgreSQL Settings
+  Optional[Patroni::Authentication] $pgsql_authentication = undef,
   String $superuser_username = 'postgres',
   Variant[Sensitive[String], String] $superuser_password = 'changeme',
   String $replication_username = 'rep_user',
@@ -441,6 +451,16 @@ class patroni (
   Enum['file','absent'] $config_ensure = 'file',
   Enum['reload', 'restart'] $config_change_action = 'restart',
 ) {
+  # use old default values, until we deprecate them
+  if $pgsql_authentication {
+    $_pgsql_authentication = $pgsql_authentication
+  } else {
+    $_pgsql_authentication = {
+      'superuser'   => { 'username' => $superuser_username, 'password' => $superuser_password },
+      'replication' => { 'username' => $replication_username, 'password' => $replication_password },
+    }
+  }
+
   if $manage_postgresql {
     class { 'postgresql::globals':
       encoding            => 'UTF-8',

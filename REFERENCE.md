@@ -13,6 +13,10 @@
 * [`patroni_dcs_config`](#patroni_dcs_config): Manages Patroni DCS configuration options
 * [`patronictl_config`](#patronictl_config): Abstract type to configure other types
 
+### Data types
+
+* [`Patroni::Authentication`](#Patroni--Authentication): Matches the patroni::pqsl_authentication parameter
+
 ## Classes
 
 ### <a name="patroni"></a>`patroni`
@@ -46,6 +50,7 @@ The following parameters are available in the `patroni` class:
 * [`bootstrap_users`](#-patroni--bootstrap_users)
 * [`bootstrap_post_bootstrap`](#-patroni--bootstrap_post_bootstrap)
 * [`bootstrap_post_init`](#-patroni--bootstrap_post_init)
+* [`pgsql_authentication`](#-patroni--pgsql_authentication)
 * [`superuser_username`](#-patroni--superuser_username)
 * [`superuser_password`](#-patroni--superuser_password)
 * [`replication_username`](#-patroni--replication_username)
@@ -349,11 +354,23 @@ Refer to Bootstrap configuration settings `post_init` setting
 
 Default value: `undef`
 
+##### <a name="-patroni--pgsql_authentication"></a>`pgsql_authentication`
+
+Data type: `Optional[Patroni::Authentication]`
+
+postgresql authentication settings
+This replaces the parameters superuser_username, superuser_password
+replication_username and replication_password which are used for
+setting the default value until final deprecation.
+
+Default value: `undef`
+
 ##### <a name="-patroni--superuser_username"></a>`superuser_username`
 
 Data type: `String`
 
 Refer to PostgreSQL configuration settings superuser username
+Deprecated, use patroni::pgsql['superuser']['username'] instead.
 
 Default value: `'postgres'`
 
@@ -362,6 +379,7 @@ Default value: `'postgres'`
 Data type: `Variant[Sensitive[String], String]`
 
 Refer to PostgreSQL configuration settings superuser password
+Deprecated, use patroni::pgsql['superuser']['password'] instead
 
 Default value: `'changeme'`
 
@@ -370,6 +388,7 @@ Default value: `'changeme'`
 Data type: `String`
 
 Refer to PostgreSQL configuration settings replication username
+Deprecated, use patroni::pgsql['replication']['username'] instead
 
 Default value: `'rep_user'`
 
@@ -378,6 +397,7 @@ Default value: `'rep_user'`
 Data type: `Variant[Sensitive[String], String]`
 
 Refer to PostgreSQL configuration settings replication password
+Deprecated, use patroni::pgsql['replication']['password']
 
 Default value: `'changeme'`
 
@@ -1328,3 +1348,30 @@ The name of the resource.
 patronictl path
 
 Default value: `/opt/app/patroni/bin/patronictl`
+
+## Data types
+
+### <a name="Patroni--Authentication"></a>`Patroni::Authentication`
+
+Matches the patroni::pqsl_authentication parameter
+
+Alias of
+
+```puppet
+Hash[Enum['superuser','replication','rewind'], Struct[
+  {
+    Optional['username']        => String[1],
+    Optional['password']        => Variant[Sensitive[String], String],
+    Optional['sslmode']         => Enum['disable','allow','prefer','require','verify-ca','verify-full'],
+    Optional['sslkey']          => Optional[Stdlib::Absolutepath],
+    Optional['sslpassword']     => Variant[Sensitive[String], String],
+    Optional['sslcert']         => Optional[Stdlib::Absolutepath],
+    Optional['sslrootcert']     => Optional[Stdlib::Absolutepath],
+    Optional['sslcrl']          => Optional[Stdlib::Absolutepath],
+    Optional['sslcrldir']       => Optional[Stdlib::Absolutepath],
+    Optional['sslnegotiation']  => Enum['postgres', 'direct'],
+    Optional['gssencmode']      => Enum['disable', 'prefer','require'],
+    Optional['channel_binding'] => Enum['require', 'prefer', 'disable'],
+  }
+]]
+```

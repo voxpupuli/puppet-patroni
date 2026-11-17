@@ -40,10 +40,10 @@ describe 'patroni class:' do
         'host all all 0.0.0.0/0 md5',
         'host replication repl 0.0.0.0/0 md5',
       ],
-      superuser_username      => 'postgres',
-      superuser_password      => 'postgrespassword',
-      replication_username    => 'repl',
-      replication_password    => 'replpassword',
+      pgsql_authentication    => {
+        'superuser'    => { 'username' => 'postgres', 'password' => 'postgrespassword' },
+        'replication'' => { 'username' => 'repl', 'password' => 'replpassword' },
+      },
     }
   EOS
   context 'default parameters' do
@@ -94,10 +94,10 @@ describe 'patroni class:' do
           'host all all 0.0.0.0/0 md5',
           'host replication repl 0.0.0.0/0 md5',
         ],
-        superuser_username      => 'postgres',
-        superuser_password      => 'postgrespassword',
-        replication_username    => 'repl',
-        replication_password    => 'replpassword',
+        pgsql_authentication    => {
+          'superuser'   => { 'username' => 'postgres', 'password' => 'postgrespassword' },
+          'replication' => { 'username' => 'repl', 'password' => 'replpassword' },
+        },
       }
     EOS
 
@@ -149,7 +149,7 @@ describe 'patroni class:' do
     end
 
     describe command('ps aux | grep postgres') do
-      its(:stdout) { is_expected.to match %r{max_connections=200} }
+      its(:stdout) { is_expected.to include('max_connections=200') }
     end
   end
 end
