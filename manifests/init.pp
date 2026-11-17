@@ -594,6 +594,11 @@ class patroni (
       require => Python::Pyvenv['patroni'],
     }
 
+    systemd::unit_file { "${service_name}.service":
+      content => template('patroni/patroni.service.erb'),
+      notify  => Service['patroni'],
+    }
+
   } else {
     package { 'patroni':
       ensure => $version,
@@ -612,13 +617,6 @@ class patroni (
     mode    => $config_mode,
     content => epp('patroni/postgresql.yml.epp'),
     notify  => $_config_change_notify,
-  }
-
-  if $install_method == 'pip' {
-    systemd::unit_file { "${service_name}.service":
-      content => template('patroni/patroni.service.erb'),
-      notify  => Service['patroni'],
-    }
   }
 
   exec { 'patroni_reload':
