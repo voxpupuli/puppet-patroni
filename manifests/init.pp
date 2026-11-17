@@ -583,15 +583,7 @@ class patroni (
     if $use_exhibitor or $use_zookeeper {
       python::pip { 'kazoo': * => $dependency_params }
     }
-  } else {
-    package { 'patroni':
-      ensure => $version,
-      name   => $package_name,
-      before => File['patroni_config'],
-    }
-  }
 
-  if $install_method == 'pip' {
     $config_dir = dirname($config_path)
     file { 'patroni_config_dir':
       ensure  => 'directory',
@@ -601,7 +593,14 @@ class patroni (
       mode    => '0755',
       require => Python::Pyvenv['patroni'],
     }
-  }
+
+  } else {
+    package { 'patroni':
+      ensure => $version,
+      name   => $package_name,
+      before => File['patroni_config'],
+    }
+  } # end ($install_method == 'pip')
 
   $_config_change_notify = if $config_change_action == 'restart' { Service['patroni'] } else { Exec['patroni_reload'] }
 
