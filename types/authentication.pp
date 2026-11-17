@@ -1,4 +1,4 @@
-# Matches the patroni::pqsl_authentication parameter
+# @summary Matches the patroni::pqsl_authentication parameter
 type Patroni::Authentication = Hash[Enum['superuser','replication','rewind'],Struct[
   {
     Optional['username']        => String[1],
