@@ -599,12 +599,14 @@ class patroni (
       notify  => Service['patroni'],
     }
 
+    $patronictl = "${install_dir}/bin/patronictl"
   } else {
     package { 'patroni':
       ensure => $version,
       name   => $package_name,
       before => File['patroni_config'],
     }
+    $patronictl = '/bin/patronictl'
   } # end ($install_method == 'pip')
 
   $_config_change_notify = if $config_change_action == 'restart' { Service['patroni'] } else { Exec['patroni_reload'] }
@@ -620,10 +622,9 @@ class patroni (
   }
 
   exec { 'patroni_reload':
-    command     => "patronictl -c ${config_path} reload ${scope} ${hostname} --force",
+    command     => "${patronictl} -c ${config_path} reload ${scope} ${hostname} --force",
     refreshonly => true,
     require     => Service['patroni'],
-    path        => ["${install_dir}/bin", $facts['path']],
   }
 
   service { 'patroni':
@@ -632,7 +633,6 @@ class patroni (
     enable => $service_enable,
   }
 
-  $patronictl = "${install_dir}/bin/patronictl"
   patronictl_config { 'puppet':
     path   => $patronictl,
     config => $config_path,
