@@ -98,8 +98,6 @@ node pg1 {
     },
   }
 
-  $_pgsql_authentication = {
-
   class { 'patroni':
     scope                   => 'mycluster',
     use_etcd                => true,
