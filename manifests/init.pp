@@ -583,15 +583,7 @@ class patroni (
     if $use_exhibitor or $use_zookeeper {
       python::pip { 'kazoo': * => $dependency_params }
     }
-  } else {
-    package { 'patroni':
-      ensure => $version,
-      name   => $package_name,
-      before => File['patroni_config'],
-    }
-  }
 
-  if $install_method == 'pip' {
     $config_dir = dirname($config_path)
     file { 'patroni_config_dir':
       ensure  => 'directory',
@@ -601,7 +593,21 @@ class patroni (
       mode    => '0755',
       require => Python::Pyvenv['patroni'],
     }
-  }
+
+    systemd::unit_file { "${service_name}.service":
+      content => template('patroni/patroni.service.erb'),
+      notify  => Service['patroni'],
+    }
+
+    $patronictl = "${install_dir}/bin/patronictl"
+  } else {
+    package { 'patroni':
+      ensure => $version,
+      name   => $package_name,
+      before => File['patroni_config'],
+    }
+    $patronictl = '/bin/patronictl'
+  } # end ($install_method == 'pip')
 
   $_config_change_notify = if $config_change_action == 'restart' { Service['patroni'] } else { Exec['patroni_reload'] }
 
@@ -615,18 +621,10 @@ class patroni (
     notify  => $_config_change_notify,
   }
 
-  if $install_method == 'pip' {
-    systemd::unit_file { "${service_name}.service":
-      content => template('patroni/patroni.service.erb'),
-      notify  => Service['patroni'],
-    }
-  }
-
   exec { 'patroni_reload':
-    command     => "patronictl -c ${config_path} reload ${scope} ${hostname} --force",
+    command     => "${patronictl} -c ${config_path} reload ${scope} ${hostname} --force",
     refreshonly => true,
     require     => Service['patroni'],
-    path        => ["${install_dir}/bin", $facts['path']],
   }
 
   service { 'patroni':
@@ -635,7 +633,6 @@ class patroni (
     enable => $service_enable,
   }
 
-  $patronictl = "${install_dir}/bin/patronictl"
   patronictl_config { 'puppet':
     path   => $patronictl,
     config => $config_path,
