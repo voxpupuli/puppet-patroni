@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.6.0](https://github.com/voxpupuli/puppet-patroni/tree/v4.6.0) (2026-11-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v4.5.0...v4.6.0)
+
+**Implemented enhancements:**
+
+- consolidate if install\_method=='pip' and make $patronictl install dependent [\#132](https://github.com/voxpupuli/puppet-patroni/pull/132) ([trefzer](https://github.com/trefzer))
+- add pgsql\_authentication parameter, support for ssl auth and rewind user [\#131](https://github.com/voxpupuli/puppet-patroni/pull/131) ([trefzer](https://github.com/trefzer))
+
+**Closed issues:**
+
+- install\_path documentation is wrong [\#126](https://github.com/voxpupuli/puppet-patroni/issues/126)
+
 ## [v4.5.0](https://github.com/voxpupuli/puppet-patroni/tree/v4.5.0) (2026-11-12)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-patroni/compare/v4.4.0...v4.5.0)
